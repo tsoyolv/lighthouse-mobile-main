@@ -28,7 +28,7 @@ CREATE TABLE BUILDING
     BUILDING_CLASS          VARCHAR(108),
     INVESTMENT_ATTRACTION   NUMERIC(10, 2),
     SOLD_FLATS_AMOUNT       SMALLINT,
-    DISTRICT_ID             INT
+    DISTRICT_ID             BIGINT
 );
 
 COMMENT ON TABLE BUILDING IS 'Строения';
@@ -60,3 +60,21 @@ COMMENT ON COLUMN BUILDING.BUILDING_CLASS IS 'Класс дома / прести
 COMMENT ON COLUMN BUILDING.INVESTMENT_ATTRACTION IS 'Инвестиционная привлекательность -  - окупаемость от сдачи в аренду в годах';
 COMMENT ON COLUMN BUILDING.SOLD_FLATS_AMOUNT IS 'Количество проданных квартир';
 COMMENT ON COLUMN BUILDING.DISTRICT_ID IS 'Идентификатор района';
+
+------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE BUILDING_FLAT_STATS
+(
+    ID                      BIGSERIAL PRIMARY KEY NOT NULL,
+    ROOMS_AMOUNT            SMALLINT,
+    AVG_PRICE               NUMERIC(18, 2),
+    AVG_EXPOSITION_DAYS     INT,
+    BUILDING_ID             BIGINT,
+    FOREIGN KEY (BUILDING_ID) REFERENCES BUILDING (ID)
+);
+
+COMMENT ON TABLE BUILDING_FLAT_STATS IS 'Агрегированные данные строений';
+COMMENT ON COLUMN BUILDING_FLAT_STATS.ROOMS_AMOUNT IS 'Количество комнат';
+COMMENT ON COLUMN BUILDING_FLAT_STATS.AVG_PRICE IS 'Ср. стоимость 1 ком. квартир  / 2 ком, квартир  etc.';
+COMMENT ON COLUMN BUILDING_FLAT_STATS.AVG_EXPOSITION_DAYS IS 'Ср. срок экспозиции в днях по типу кв. в доме. 1 ком. квартир  / 2 ком, квартир  etc.';
+COMMENT ON COLUMN BUILDING_FLAT_STATS.BUILDING_ID IS 'Идентификатор строения';

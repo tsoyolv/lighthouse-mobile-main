@@ -31,6 +31,10 @@ public class RecommendationFlat implements EntityModel {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    /** Время до ближайшего метро */
+    @Column(name = "METRO_TIME")
+    private Integer metroTime;
+
     /** Площадь кухни -  m2 */
     @Column(name = "KITCHEN_AREA")
     private Float kitchenArea;

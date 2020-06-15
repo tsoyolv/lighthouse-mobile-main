@@ -43,7 +43,7 @@ public class RecommendationMapper implements CustomEntityDtoMapper<Recommendatio
         dto.setCoordinates(mapCoordinate(flat));
         dto.setBuilding(mapBuilding(recommendation));
         dto.setDetails(mapDetails(recommendation));
-        //dto.setTimeToMetro();
+        dto.setTimeToMetro(recommendation.getMetroTime());
         dto.setImages(mapImages(images));
         return dto;
     }

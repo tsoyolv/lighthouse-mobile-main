@@ -56,6 +56,7 @@ CREATE TABLE FLAT_DETAILS
     RENTING_PRICE                  NUMERIC(10, 2),
     REDEVELOPMENT                  BOOLEAN,
     INVESTMENT_ATTRACTION          NUMERIC(10, 2),
+    ESTIMATION_PERCENT             SMALLINT,
     EXTERNAL_ID                    VARCHAR(150),
     URL                            VARCHAR(253),
     TITLE                          VARCHAR(254),
@@ -89,6 +90,7 @@ COMMENT ON COLUMN FLAT_DETAILS.PUBLICATION_DATE_END IS 'Дата снятия с
 COMMENT ON COLUMN FLAT_DETAILS.RENTING_PRICE IS 'Цена сдачи в аренду - тыс. руб. в месяц\ (-)';
 COMMENT ON COLUMN FLAT_DETAILS.REDEVELOPMENT IS 'Перепланировка';
 COMMENT ON COLUMN FLAT_DETAILS.INVESTMENT_ATTRACTION IS 'Инвестиционная привлекательность - окупаемость от сдачи в аренду в годах';
+COMMENT ON COLUMN FLAT_DETAILS.ESTIMATION_PERCENT IS 'Недооцененность / переоцененность в процентах - отклонение от медианной цены в района среди аналогичных квартир';
 ----------------------------------- Ads-api ---------------------
 COMMENT ON COLUMN FLAT_DETAILS.EXTERNAL_ID IS 'Идентификатор записи из сторонней БД';
 COMMENT ON COLUMN FLAT_DETAILS.URL IS 'Url объявления на сайте-источнике';
