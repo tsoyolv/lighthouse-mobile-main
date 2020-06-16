@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.security;
+package ru.lighthouse.mobile.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -10,7 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,17 +37,18 @@ public class JWTService {
     private String claimDetailsName;
 
     @Value("${security.jwt.claims.details.userId}")
-    private String detailsClaimUserIdClaimName;
+    private String claimDetailsUserId;
     @Value("${security.jwt.claims.details.userFirstName}")
-    private String detailsClaimUserFirstName;
+    private String claimDetailsUserFirstName;
     @Value("${security.jwt.claims.details.userSecondName}")
-    private String detailsClaimUserSecondName;
+    private String claimDetailsUserSecondName;
     @Value("${security.jwt.claims.details.userLastName}")
-    private String detailsClaimUserLastName;
+    private String claimDetailsUserLastName;
     @Value("${security.jwt.claims.details.userBirthDate}")
-    private String detailsClaimUserBirthDate;
+    private String claimDetailsUserBirthDate;
 
-    public String createJWTToken(String subject, List<String> authorities, Object details) {
+    public String createJWTToken(String subject, Collection<? extends GrantedAuthority> grantedAuthorities, Object details) {
+        List<String> authorities = grantedAuthorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         long now = System.currentTimeMillis();
         String token = Jwts.builder()
                 .setSubject(subject)
@@ -57,18 +60,18 @@ public class JWTService {
                 .compact();
         return getPrefix() + token;
     }
-
+    
     public Authentication convertJWTTokenToAuthentication(String jwtToken) {
         final Claims claims = Jwts.parser().setSigningKey(getSecret().getBytes()).parseClaimsJws(jwtToken).getBody();
-        String phoneNumber = claims.getSubject();
-        if (phoneNumber == null) {
-            return null;
+        final String subject = claims.getSubject();
+        if (StringUtils.isEmpty(subject)) {
+            return null;    
         }
         @SuppressWarnings("unchecked")
-        final List<String> authoritiesStrings = claims.get(claimAuthoritiesName, List.class);
-        List<GrantedAuthority> authorities = authoritiesStrings.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(phoneNumber, null, authorities);
-        authToken.setDetails(claims.get(claimDetailsName));
+        final List<GrantedAuthority> grantedAuthorities = ((List<String>)claims.get(claimAuthoritiesName)).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        final Object details = claims.get(claimDetailsName);
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(subject, null, grantedAuthorities);
+        authToken.setDetails(details);
         return authToken;
     }
 }

@@ -45,3 +45,7 @@ security:
         userFirstName: userFirstName
         userSecondName: userSecondName
         userLastName: userLastName
+
+integration:
+  uri:
+    user: /integration/user

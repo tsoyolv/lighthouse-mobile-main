@@ -10,8 +10,7 @@ import ru.lighthouse.mobile.integration.user.dto.UserIntegrationDto;
 import ru.lighthouse.mobile.logic.user.UserService;
 import ru.lighthouse.mobile.logic.user.entity.User;
 
-import static ru.lighthouse.mobile.integration.IntegrationProperties.INTEGRATION_ROLE;
-import static ru.lighthouse.mobile.integration.IntegrationProperties.USER_URI;
+import static ru.lighthouse.mobile.security.SecurityConfiguration.Role.ROLE_INTEGRATION_WITH_PREFIX;
 
 
 @RestController
@@ -20,8 +19,8 @@ public class UserIntegrationController {
     private final MapperFacade mapper;
     private final UserService userService;
 
-    @PostMapping(USER_URI)
-    @Secured({INTEGRATION_ROLE})
+    @PostMapping("${integration.uri.user}")
+    @Secured({ROLE_INTEGRATION_WITH_PREFIX})
     public UserIntegrationDto createOrUpdateUser(@RequestBody UserIntegrationDto userIntegrationDto){
         User user = mapper.map(userIntegrationDto, User.class);
         User created = userService.getOrCreate(user);

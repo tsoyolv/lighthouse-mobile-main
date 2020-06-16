@@ -19,7 +19,8 @@ CREATE TABLE RECOMMENDATION_FLAT
     EXPERT_COMMENT          VARCHAR(1000),
     EXPERT_ID               BIGINT,
     FLAT_ID                 BIGINT,
-    USER_ID                 BIGINT
+    USER_ID                 BIGINT,
+    FOREIGN KEY (USER_ID) REFERENCES USERS (ID)
 );
 
 COMMENT ON TABLE RECOMMENDATION_FLAT IS 'Детальное описание квартиры';

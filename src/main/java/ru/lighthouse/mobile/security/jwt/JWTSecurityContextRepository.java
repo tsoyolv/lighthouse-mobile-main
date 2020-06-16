@@ -1,10 +1,10 @@
-package ru.lighthouse.mobile.security;
+package ru.lighthouse.mobile.security.jwt;
+
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpRequestResponseHolder;
@@ -13,8 +13,6 @@ import org.springframework.security.web.context.SecurityContextRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class JWTSecurityContextRepository implements SecurityContextRepository {
@@ -68,8 +66,7 @@ public class JWTSecurityContextRepository implements SecurityContextRepository {
             if (auth == null || trustResolver.isAnonymous(auth)) {
                 return;
             }
-            List<String> authorities = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-            String jwtToken = jwtService.createJWTToken(auth.getName(), authorities, auth.getDetails());
+            String jwtToken = jwtService.createJWTToken(auth.getName(), auth.getAuthorities(), auth.getDetails());
             response.addHeader(jwtService.getHeader(), jwtToken);
         }
     }
