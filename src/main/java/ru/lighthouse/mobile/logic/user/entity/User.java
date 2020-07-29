@@ -13,48 +13,60 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity @Table(name = "USERS")
-@Getter @Setter @ToString
+@Entity
+@Table(name = "USERS")
+@Getter
+@Setter
+@ToString
 public class User implements EntityModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy="user", cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "AUTHORITY_TO_USER",
+            joinColumns = @JoinColumn(name = "USERS_ID"),
+            inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID"))
     @ToString.Exclude
     private Set<Authority> authorities = new HashSet<>();
 
-    @Column(name="PHONE_NUMBER", length=50, nullable=false, unique=true)
+    @Column(name = "PHONE_NUMBER", length = 50, nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(name="ENABLED", nullable=false)
+    @Column(name = "ENABLED", nullable = false)
     private Boolean enabled;
 
-    @Column(name="ACCOUNT_NON_LOCKED", nullable=false)
+    @Column(name = "ACCOUNT_NON_LOCKED", nullable = false)
     private Boolean accountNonLocked;
 
-    @Column(name="FIRST_NAME")
+    @Column(name = "USER_AGENT")
+    private String userAgent;
+
+    @Column(name = "FIRST_NAME")
     private String firstName;
 
-    @Column(name="SECOND_NAME")
+    @Column(name = "SECOND_NAME")
     private String secondName;
 
-    @Column(name="LAST_NAME")
+    @Column(name = "LAST_NAME")
     private String lastName;
 
-    @Column(name="BIRTH_DATE")
+    @Column(name = "BIRTH_DATE")
     private Date birthDate;
 
-    @Column(name="REGISTRATION_DATE")
+    @Column(name = "REGISTRATION_DATE")
     private Date registrationDate;
 
-    @Column(name="LAST_LOGIN")
+    @Column(name = "LAST_LOGIN")
     private Date lastLogin;
 }

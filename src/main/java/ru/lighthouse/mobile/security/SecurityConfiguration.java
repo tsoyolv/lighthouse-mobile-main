@@ -24,8 +24,8 @@ import static ru.lighthouse.mobile.security.SecurityConfiguration.Role.ROLE_IOS;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public interface Role {
         String ROLE_INTEGRATION = "INTEGRATION";
-        String ROLE_IOS = "IOS";
-        String ROLE_ANDROID = "ANDROID";
+        String ROLE_IOS = "IOS_USER";
+        String ROLE_ANDROID = "ANDROID_USER";
         String ROLE_INTEGRATION_WITH_PREFIX = "ROLE_" + ROLE_INTEGRATION;
     }
 

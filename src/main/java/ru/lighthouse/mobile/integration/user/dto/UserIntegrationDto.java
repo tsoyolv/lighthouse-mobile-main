@@ -10,6 +10,7 @@ import java.util.Set;
 @Data
 public class UserIntegrationDto implements DtoModel {
     private Long id;
+    private String userAgent;
     private Set<AuthorityDto> authorities = new HashSet<>();
     private String phoneNumber;
     private Boolean enabled;
