@@ -86,7 +86,7 @@ public class RealtyMapFilterDto extends FilterDto {
                     "    {\n" +
                     "      \"key\": \"wallMaterial\",\n" +
                     "      \"operation\": \"in\",\n" +
-                    "      \"value\": \"['Монолитный']\"\n" +
+                    "      \"value\": [\"Монолитный\"]\n" +
                     "    },\n" +
                     "    {\n" +
                     "      \"key\": \"constructionYear\",\n" +

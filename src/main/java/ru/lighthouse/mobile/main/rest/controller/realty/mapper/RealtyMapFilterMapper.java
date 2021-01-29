@@ -17,7 +17,7 @@ public class RealtyMapFilterMapper {
 
     public static RealtyMapFilter map(RealtyMapFilterDto filterDto) {
         Specification<Flat> specification = BboxDtoMapper.createBboxFilter(filterDto.getBbox(), "latitude", "longitude", RealtyMapFilterMapper::createSpec);
-        specification.and(SearchCriteriaMapper.map(filterDto.getFilter()));
+        specification = specification.and(SearchCriteriaMapper.map(filterDto.getFilter()));
         Sort sort = SortedFieldDtoMapper.map(filterDto.getSortedFields());
         Pageable pageable;
         if (sort == null) {
