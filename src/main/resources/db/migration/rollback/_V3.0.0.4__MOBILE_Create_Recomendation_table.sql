@@ -1,3 +1,3 @@
 DROP TABLE RECOMMENDATION_FLAT;
 DELETE FROM FLYWAY_SCHEMA_HISTORY
-WHERE SCRIPT = 'V1.0.0.3__Create_Recomendation_table.sql';
+WHERE SCRIPT = 'V4.0.0.4__MOBILE_Create_Recomendation_table.sql';

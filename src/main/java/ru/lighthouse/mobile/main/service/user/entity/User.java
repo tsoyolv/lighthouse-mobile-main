@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "MOBILE_USER")
 @Getter
 @Setter
 @ToString
@@ -34,7 +34,7 @@ public class User implements EntityModel {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
-            name = "AUTHORITY_TO_USER",
+            name = "MOBILE_AUTHORITY_TO_USER",
             joinColumns = @JoinColumn(name = "USERS_ID"),
             inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID"))
     @ToString.Exclude

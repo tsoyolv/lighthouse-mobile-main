@@ -10,7 +10,7 @@ import ru.lighthouse.mobile.main.App;
 @SpringBootTest(classes = App.class)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-public class AbstractIntegrationTest {
+public abstract class AbstractIntegrationTest {
     public static final String DEFAULT_PHONE_NUMBER = "79779873676";
 
     @Autowired

@@ -1,7 +1,7 @@
 server:
-  port: 8002
+  port: 8004
   servlet:
-    context-path: /
+    context-path: /mobile
 
 spring:
   application:
@@ -22,6 +22,10 @@ spring:
         default_schema: public
 
 # --------------------------------------------- Shared properties ------------------------------------------------------
+domain:
+  name: purevaluation
+  host: purevaluation.ru
+  url: https://purevaluation.ru
 
 shared-database:
   type: postgres

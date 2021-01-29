@@ -26,9 +26,7 @@ import java.util.Optional;
 import static java.util.Objects.nonNull;
 import static ru.lighthouse.mobile.main.core.rest.CommonUri.URI_PART_ID;
 import static ru.lighthouse.mobile.main.core.rest.CommonUri.URI_PART_PAGE;
-import static ru.lighthouse.mobile.main.core.security.Authority.ROLE_ADMIN;
-import static ru.lighthouse.mobile.main.core.security.Authority.ROLE_SUPER_ADMIN;
-import static ru.lighthouse.mobile.main.core.security.Authority.ROLE_SUPER_AGENT;
+import static ru.lighthouse.mobile.main.core.security.SecurityRole.ROLE_ADMIN_STR;
 
 @RequiredArgsConstructor
 public abstract class AbstractController<D extends DomainModel, DS extends DomainService<D>, DTO extends DtoModel> {
@@ -73,7 +71,7 @@ public abstract class AbstractController<D extends DomainModel, DS extends Domai
     }
 
     @DeleteMapping(URI_PART_ID)
-    @Secured({ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_SUPER_AGENT})
+    @Secured({ROLE_ADMIN_STR})
     public void delete(@PathVariable @Min(1) Long id) {
         domainService.delete(id);
     }

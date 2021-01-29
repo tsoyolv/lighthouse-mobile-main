@@ -14,20 +14,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import static ru.lighthouse.mobile.main.App.HEALTH_URI;
-import static ru.lighthouse.mobile.main.core.security.SecurityConfiguration.Role.ROLE_ANDROID;
-import static ru.lighthouse.mobile.main.core.security.SecurityConfiguration.Role.ROLE_INTEGRATION;
-import static ru.lighthouse.mobile.main.core.security.SecurityConfiguration.Role.ROLE_IOS;
+import static ru.lighthouse.mobile.main.core.security.SecurityRole.ADMIN;
+import static ru.lighthouse.mobile.main.core.security.SecurityRole.INTEGRATION;
+import static ru.lighthouse.mobile.main.core.security.SecurityRole.MOBILE;
 import static ru.lighthouse.mobile.main.core.swagger.SwaggerConfig.SWAGGER_URIES;
 
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    public interface Role {
-        String ROLE_INTEGRATION = "INTEGRATION";
-        String ROLE_IOS = "IOS_USER";
-        String ROLE_ANDROID = "ANDROID_USER";
-        String ROLE_INTEGRATION_WITH_PREFIX = "ROLE_" + ROLE_INTEGRATION;
-    }
 
     // it has to be a Resource or Autowired, either it will be a cycle: SecurityConfiguratio -> UserDetailsService
     @Resource
@@ -48,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HEALTH_URI).permitAll()
-                .anyRequest().hasAnyRole(ROLE_INTEGRATION, "SUPER_ADMIN",ROLE_IOS, ROLE_ANDROID);
+                .anyRequest().hasAnyRole(INTEGRATION.name(), ADMIN.name(), MOBILE.name());
     }
 
     @Override

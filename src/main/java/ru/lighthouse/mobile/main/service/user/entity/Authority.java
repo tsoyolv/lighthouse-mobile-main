@@ -18,7 +18,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "AUTHORITY")
+@Table(name = "MOBILE_AUTHORITY")
 @Getter
 @Setter
 public class Authority implements EntityModel {
@@ -28,7 +28,7 @@ public class Authority implements EntityModel {
 
     @ManyToMany
     @JoinTable(
-            name = "AUTHORITY_TO_USER",
+            name = "MOBILE_AUTHORITY_TO_USER",
             joinColumns = @JoinColumn(name = "AUTHORITY_ID"),
             inverseJoinColumns = @JoinColumn(name = "USERS_ID"))
     private Set<User> users = new HashSet<>();

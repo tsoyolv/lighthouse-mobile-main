@@ -13,7 +13,7 @@ import ru.lighthouse.mobile.main.inttest.AbstractIntegrationTest;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.lighthouse.mobile.main.core.security.Authority.ADMIN;
+import static ru.lighthouse.mobile.main.core.security.SecurityRole.ADMIN;
 
 public class CheckAuthTest extends AbstractIntegrationTest {
 
@@ -37,6 +37,6 @@ public class CheckAuthTest extends AbstractIntegrationTest {
 	}
 
 	protected String createJwtToken() {
-		return jwtService.createJWTToken("79779873676", AuthorityUtils.createAuthorityList(ADMIN.getSystemName()), null);
+		return jwtService.createJWTToken(DEFAULT_PHONE_NUMBER, AuthorityUtils.createAuthorityList(ADMIN.getSystemName()), null);
 	}
 }

@@ -9,6 +9,8 @@ import ru.lighthouse.mobile.main.service.user.repository.UserRepository;
 import javax.transaction.Transactional;
 import java.util.Collections;
 
+import static ru.lighthouse.mobile.main.core.security.SecurityRole.MOBILE;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private User createInternal(User user) {
-        user.setAuthorities(Collections.singleton(authorityRepository.getBySystemName("ROLE_IOS_USER")));
+        user.setAuthorities(Collections.singleton(authorityRepository.getBySystemName(MOBILE.getSystemName())));
         return repository.save(user);
     }
 
