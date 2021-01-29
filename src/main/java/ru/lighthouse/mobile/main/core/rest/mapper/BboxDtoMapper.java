@@ -15,7 +15,7 @@ public class BboxDtoMapper {
     public static final int LONGITUDE_SCALING = 6;
 
     public static void validateBbox(BboxDto bbox) {
-        if (isNull(bbox.getLeftLowerCorner()) || isNull(bbox.getRightUpperCorner())
+        if (bbox == null || isNull(bbox.getLeftLowerCorner()) || isNull(bbox.getRightUpperCorner())
                 || bbox.getLeftLowerCorner().size() != 2 || bbox.getRightUpperCorner().size() != 2) {
             throw new ValidationException("Bbox invalid!");
         }

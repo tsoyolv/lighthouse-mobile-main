@@ -8,6 +8,7 @@ import ru.lighthouse.mobile.main.core.rest.dto.BboxDto;
 import ru.lighthouse.mobile.main.core.rest.dto.FilterDto;
 import ru.lighthouse.mobile.main.core.rest.dto.SearchCriteriaPlainDto;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class RealtyMapFilterDto extends FilterDto {
 
     @ApiModelProperty(position = 0)
+    @NotNull
     private BboxDto bbox;
 
     @ApiModelProperty(value = "Filter", example =
