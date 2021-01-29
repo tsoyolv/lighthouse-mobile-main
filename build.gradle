@@ -30,6 +30,8 @@ dependencies {
 	implementation "io.jsonwebtoken:jjwt:${jjwtversion}"
 	implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
 	implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+	implementation "org.apache.commons:commons-lang3:${apacheCommonLangVersion}"
+	implementation "javax.xml.bind:jaxb-api:${jaxbiversion}"
 }
 
 java {
@@ -56,6 +58,9 @@ sourceSets {
 	}
 }
 
+springBoot {
+	buildInfo()
+}
 
 test {
 	useJUnitPlatform()

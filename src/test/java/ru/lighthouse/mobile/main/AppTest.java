@@ -2,12 +2,7 @@ package ru.lighthouse.mobile.main;
 
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import ru.lighthouse.mobile.main.App;
+import ru.lighthouse.mobile.main.inttest.AbstractIntegrationTest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -15,16 +10,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static ru.lighthouse.mobile.main.App.HEALTH_RESPONSE;
 import static ru.lighthouse.mobile.main.App.HEALTH_URI;
 
-@SpringBootTest(classes = App.class)
-@AutoConfigureMockMvc
-@ActiveProfiles("test")
-public class AppTest {
-
-	@Autowired
-	private MockMvc mvc;
+public class AppTest extends AbstractIntegrationTest {
 
 	@Test
-	public void helloGradle() throws Exception {
+	public void testHealth() throws Exception {
 		mvc.perform(get(HEALTH_URI))
 				.andExpect(status().isOk())
 				.andExpect(content().string(HEALTH_RESPONSE));

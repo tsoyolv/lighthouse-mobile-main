@@ -1,0 +1,1 @@
+price metrePrice roomsAmount этаж и всего этажей адрес сколько до метро метро point
