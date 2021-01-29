@@ -2,7 +2,7 @@ package ru.lighthouse.mobile.main.service.user.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.lighthouse.mobile.main.core.mapper.model.EntityModel;
+import ru.lighthouse.mobile.main.core.dao.EntityModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

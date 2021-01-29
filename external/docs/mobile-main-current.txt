@@ -1,1 +1,99 @@
 price metrePrice roomsAmount этаж и всего этажей адрес сколько до метро метро point
+
+realtyType(vtorichka), address, roomsAmountFromTo, priceFromTo, areaFromTo, kirchenAreaFromTo, floorFromTo, wallMaterials, contstructionYearFromTo, {loggia, diffSanUzel, oknaWoDwor, lift, remont, onlyFlats}
+
+{
+  "obl":
+  [
+    {
+      "key": "objectType",
+      "operation": "=",
+      "value": "Новостройка"
+    },
+    {
+      "key": "address",
+      "operation": "like",
+      "value": "Кутузовс"
+    },
+    {
+      "key": "roomsAmount",
+      "operation": ">=",
+      "value": "1"
+    },
+    {
+      "key": "roomsAmount",
+      "operation": "<=",
+      "value": "3"
+    },
+    {
+      "key": "price",
+      "operation": ">=",
+      "value": "5000000"
+    },
+    {
+      "key": "price",
+      "operation": "<=",
+      "value": "15000000"
+    },
+    {
+      "key": "area",
+      "operation": ">=",
+      "value": "40"
+    },
+    {
+      "key": "area",
+      "operation": "<=",
+      "value": "100"
+    },
+    {
+      "key": "kitchenArea",
+      "operation": ">=",
+      "value": "10"
+    },
+    {
+      "key": "kitchenArea",
+      "operation": "<=",
+      "value": "20"
+    },
+    {
+      "key": "floor",
+      "operation": ">=",
+      "value": "1"
+    },
+    {
+      "key": "floor",
+      "operation": "<=",
+      "value": "20"
+    },
+    {
+      "key": "wallMaterial",
+      "operation": "in",
+      "value": "['Монолитный']"
+    },
+    {
+      "key": "constructionYear",
+      "operation": ">=",
+      "value": "1990"
+    },
+    {
+      "key": "constructionYear",
+      "operation": "<=",
+      "value": "2030"
+    },
+    {
+      "key": "bathroom",
+      "operation": "=",
+      "value": "Раздельный"
+    }
+  ]
+}
+
+1. point
+2. address
+3. totalFloors
+constructionYear
+wallMaterial
+metro
+metroTime
+kitchenArea
+bathroom

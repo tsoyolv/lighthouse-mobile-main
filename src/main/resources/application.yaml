@@ -35,6 +35,7 @@ shared-database:
   driver: org.postgresql.Driver
 
 security:
+  enabled: true
   jwt:
     uri: /auth/**
     secret: 12k;msdfg/!@#$%sd

@@ -1,7 +1,7 @@
 package ru.lighthouse.mobile.main.integration.inbound.user.dto;
 
 import lombok.Data;
-import ru.lighthouse.mobile.main.core.mapper.model.DtoModel;
+import ru.lighthouse.mobile.main.core.rest.dto.DtoModel;
 
 
 @Data

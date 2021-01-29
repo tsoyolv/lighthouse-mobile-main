@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import ru.lighthouse.mobile.main.core.dao.DomainModel;
-import ru.lighthouse.mobile.main.core.dao.DomainService;
+import ru.lighthouse.mobile.main.core.dao.EntityModel;
+import ru.lighthouse.mobile.main.core.dao.EntityService;
 import ru.lighthouse.mobile.main.core.rest.dto.PageRequestDto;
 import ru.lighthouse.mobile.main.core.rest.dto.SearchCriteriaDto;
 import ru.lighthouse.mobile.main.core.rest.dto.SortedFieldDto;
@@ -21,7 +21,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class AbstractRestControllerTest<T extends DomainModel, S extends DomainService<T>> extends AbstractIntegrationTest {
+public abstract class AbstractRestControllerTest<T extends EntityModel, S extends EntityService<T>> extends AbstractIntegrationTest {
     protected AbstractRestControllerTest(S service, JWTService jwtService, UserService userService, TestDataGenerator<T> generator) {
         this.service = service;
         this.jwtService = jwtService;

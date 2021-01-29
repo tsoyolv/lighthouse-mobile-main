@@ -1,10 +1,12 @@
 package ru.lighthouse.mobile.main.core.security;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.context.SecurityContextRepository;
 import ru.lighthouse.mobile.main.core.security.jwt.JWTSecurityContextRepository;
@@ -27,9 +29,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Resource
     private JWTService jwtService;
 
+    @Value("#{new Boolean('${security.enabled}')}")
+    private Boolean enabled;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.AuthorizedUrl authorizedUrl =
+                http
                 //.cors().and()
                 .csrf().disable()
                 .formLogin().disable()
@@ -42,7 +48,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HEALTH_URI).permitAll()
-                .anyRequest().hasAnyRole(INTEGRATION.name(), ADMIN.name(), MOBILE.name());
+                .anyRequest();
+        if (enabled) {
+            authorizedUrl.hasAnyRole(INTEGRATION.name(), ADMIN.name(), MOBILE.name());
+        } else {
+            authorizedUrl.permitAll();
+        }
     }
 
     @Override

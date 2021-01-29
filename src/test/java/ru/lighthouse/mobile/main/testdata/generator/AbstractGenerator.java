@@ -2,8 +2,8 @@ package ru.lighthouse.mobile.main.testdata.generator;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
-import ru.lighthouse.mobile.main.core.dao.DomainModel;
-import ru.lighthouse.mobile.main.core.dao.DomainService;
+import ru.lighthouse.mobile.main.core.dao.EntityModel;
+import ru.lighthouse.mobile.main.core.dao.EntityService;
 import ru.lighthouse.mobile.main.testdata.TestDataGenerator;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Scope(value="prototype", proxyMode= ScopedProxyMode.TARGET_CLASS)
-public abstract class AbstractGenerator<T extends DomainModel, S extends DomainService<T>> implements TestDataGenerator<T> {
+public abstract class AbstractGenerator<T extends EntityModel, S extends EntityService<T>> implements TestDataGenerator<T> {
     private final List<T> generatedEntities = new ArrayList<>();
 
     private final S service;

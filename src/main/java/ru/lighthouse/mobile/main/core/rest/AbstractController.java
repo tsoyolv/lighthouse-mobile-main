@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import ru.lighthouse.mobile.main.core.dao.DomainModel;
-import ru.lighthouse.mobile.main.core.dao.DomainService;
+import ru.lighthouse.mobile.main.core.dao.EntityModel;
+import ru.lighthouse.mobile.main.core.dao.EntityService;
 import ru.lighthouse.mobile.main.core.rest.dto.DtoModel;
 import ru.lighthouse.mobile.main.core.rest.dto.PageRequestDto;
 import ru.lighthouse.mobile.main.core.rest.dto.PageResponseDto;
+import ru.lighthouse.mobile.main.core.rest.mapper.PageDtoMapper;
 import ru.lighthouse.mobile.main.core.rest.mapper.SearchCriteriaMapper;
 
 import javax.validation.Valid;
@@ -29,22 +30,22 @@ import static ru.lighthouse.mobile.main.core.rest.CommonUri.URI_PART_PAGE;
 import static ru.lighthouse.mobile.main.core.security.SecurityRole.ROLE_ADMIN_STR;
 
 @RequiredArgsConstructor
-public abstract class AbstractController<D extends DomainModel, DS extends DomainService<D>, DTO extends DtoModel> {
+public abstract class AbstractController<D extends EntityModel, DS extends EntityService<D>, DTO extends DtoModel> {
     protected final DS domainService;
     
     @PostMapping
     public DTO create(@RequestBody @Valid DTO dto) {
-        D mapped = mapDtoToDomainModel(dto);
+        D mapped = mapDtoToEntityModel(dto);
         beforeCreate(dto, mapped);
         D created = domainService.create(mapped);
         afterCreate(dto, created);
-        return mapDomainModelToDto(created);
+        return mapEntityModelToDto(created);
     }
 
     @GetMapping(URI_PART_ID)
     public DTO getById(@PathVariable @Min(1) Long id) {
         Optional<D> opt = domainService.get(id);
-        return opt.map(this::mapDomainModelToDto).orElse(null);
+        return opt.map(this::mapEntityModelToDto).orElse(null);
     }
 
     @PostMapping(URI_PART_PAGE)
@@ -57,17 +58,17 @@ public abstract class AbstractController<D extends DomainModel, DS extends Domai
         } else {
             page = domainService.getPage(pageable);
         }
-        List<DTO> mapped = mapDomainList(page.getContent());
+        List<DTO> mapped = mapEntityList(page.getContent());
         return PageDtoMapper.map(page, mapped);
     }
 
     @PutMapping
     public DTO update(@RequestBody @Valid DTO dto) {
-        D mapped = mapDtoToDomainModel(dto);
+        D mapped = mapDtoToEntityModel(dto);
         beforeUpdate(dto, mapped);
         D updated = domainService.update(mapped);
         afterUpdate(dto, updated);
-        return mapDomainModelToDto(updated);
+        return mapEntityModelToDto(updated);
     }
 
     @DeleteMapping(URI_PART_ID)
@@ -76,9 +77,9 @@ public abstract class AbstractController<D extends DomainModel, DS extends Domai
         domainService.delete(id);
     }
 
-    protected abstract D mapDtoToDomainModel(DTO dto);
-    protected abstract DTO mapDomainModelToDto(D domainModel);
-    protected abstract List<DTO> mapDomainList(List<D> domainModels);
+    protected abstract D mapDtoToEntityModel(DTO dto);
+    protected abstract DTO mapEntityModelToDto(D domainModel);
+    protected abstract List<DTO> mapEntityList(List<D> domainModels);
     protected abstract List<D> mapDtoList(List<DTO> dtos);
 
     protected void beforeCreate(DTO dto, D mapped) {}

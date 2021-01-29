@@ -2,7 +2,7 @@ package ru.lighthouse.mobile.main.core.dao.search;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
-import ru.lighthouse.mobile.main.core.dao.DomainModel;
+import ru.lighthouse.mobile.main.core.dao.EntityModel;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 
 
 @RequiredArgsConstructor
-public class SearchSpecification<T extends DomainModel> implements Specification<T> {
+public class SearchSpecification<T extends EntityModel> implements Specification<T> {
 
     private final SearchCriteria criteria;
 

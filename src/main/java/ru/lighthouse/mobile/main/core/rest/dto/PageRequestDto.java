@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
-import static ru.lighthouse.mobile.main.core.rest.PageDtoMapper.MAX_PAGE_SIZE;
+import static ru.lighthouse.mobile.main.core.rest.mapper.PageDtoMapper.MAX_PAGE_SIZE;
 
 @Data @NoArgsConstructor
 public class PageRequestDto implements DtoModel {

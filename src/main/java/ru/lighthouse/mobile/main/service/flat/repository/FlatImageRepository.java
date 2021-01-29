@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface FlatImageRepository extends JpaRepository<FlatImage, Long> {
     Page<FlatImage> findAllByFilePathIsNull(Pageable pageable);
-    List<FlatImage> getAllByFlatId(Long flatId);
+    List<FlatImage> getAllByFlat_Id(Long flatId);
 }
