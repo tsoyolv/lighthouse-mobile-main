@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.rest.controller.realty.dto;
+package ru.lighthouse.mobile.main.rest.controller.flat.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Data
-public class RealtyDto implements DtoModel {
+public class FlatDetailsDto implements DtoModel {
 
     @ApiModelProperty(value = "Идентификатор объявления", position = -1)
     private Long id;
@@ -53,4 +53,7 @@ public class RealtyDto implements DtoModel {
 
     @ApiModelProperty(value = "Объявление активно/снято с публикации")
     private Boolean active;
+
+    @ApiModelProperty(value = "История изменения цены")
+    private List<FlatPriceHistoryDto> priceHistory;
 }

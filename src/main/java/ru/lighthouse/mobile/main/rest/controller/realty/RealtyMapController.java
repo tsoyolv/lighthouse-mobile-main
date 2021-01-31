@@ -25,7 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/map")
 @RequiredArgsConstructor
-@Api(tags = "1. Оценка. REST для работы картой объектов")
+@Api(tags = "1. Покупка. Карта объявлений. REST для работы картой объявлений")
 public class RealtyMapController {
     private final MapperFacade mapper;
     private final FlatService flatService;

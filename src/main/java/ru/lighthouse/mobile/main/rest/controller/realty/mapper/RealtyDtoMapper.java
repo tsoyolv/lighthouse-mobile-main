@@ -25,6 +25,8 @@ public class RealtyDtoMapper implements MapperRegister {
                 field("metro", "metro").
                 field("metroTime", "metroTime").
                 field("objectType", "objectType").
+                field("active", "active").
+                field("lastModifyDate", "lastModifyDate").
                 register();
     }
 }
