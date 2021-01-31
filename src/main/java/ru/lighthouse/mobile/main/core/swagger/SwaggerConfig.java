@@ -65,8 +65,8 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                         "II. Для авторизации:\n" +
                         "    POST method\n" +
                         "    [" + domainParams.getUrl() + "/login/auth](" + domainParams.getUrl() + "/login/auth)\n" +
-                        "    Параметры: \"phoneNumber\", \"otp\"\n" +
-                        "\nНа каждый запрос будет отсылаться обновленный TOKEN, можно использовать и старый, но он протухает через установленное время на сервере.",
+                        "    Параметры: \"phoneNumber\", \"otp\"\n А также обязателен параметр в заголовке 'User-Agent-Type' который должен быть заполнен значением 'MOBILE'!!" +
+                        "\n\nНа каждый запрос будет отсылаться обновленный TOKEN, можно использовать и старый, но он протухает через установленное время на сервере.",
                 "BETA версия",
                 "Условия использования API",
                 new Contact("Oleg Tsoy", "https://github.com/tsoyolv", "tsoyolv@gmail.com"),
