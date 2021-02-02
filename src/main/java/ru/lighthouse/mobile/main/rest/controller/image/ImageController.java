@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.lighthouse.mobile.main.core.file.FileStorageConfig;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotBlank;
 import java.io.File;
@@ -30,12 +31,17 @@ public class ImageController {
     private final FileStorageConfig fileStorageConfig;
 
     @GetMapping(
-            value =  "/{path}",
+            value =  "/**",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
     @ApiOperation("Скачивание картинки для квартиры по идентификатору картинки")
     @Transactional
-    public byte[] getFlatImage(@PathVariable @NotBlank String path) throws IOException {
-        return IOUtils.toByteArray(new FileInputStream(fileStorageConfig.getImagesPath() + File.separator + path));
+    public byte[] getFlatImage(HttpServletRequest request) throws IOException {
+        return IOUtils.toByteArray(new FileInputStream(fileStorageConfig.getImagesPath() + File.separator + getRequestURI(request)));
+    }
+
+    private String getRequestURI(HttpServletRequest request) {
+        String requestURI = request.getRequestURI();
+        return requestURI.substring(requestURI.indexOf(IMAGES_URI) + IMAGES_URI.length());
     }
 }
