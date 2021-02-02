@@ -97,3 +97,47 @@ metro
 metroTime
 kitchenArea
 bathroom
+
+select flat0_.id                 as id1_1_,
+       flat0_.active             as active2_1_,
+       flat0_.address            as address3_1_,
+       flat0_.area               as area4_1_,
+       flat0_.bathroom           as bathroom5_1_,
+       flat0_.building_id        as buildin22_1_,
+       flat0_.construction_year  as construc6_1_,
+       flat0_.floor              as floor7_1_,
+       flat0_.full_address       as full_add8_1_,
+       flat0_.kitchen_area       as kitchen_9_1_,
+       flat0_.last_modify_date   as last_mo10_1_,
+       flat0_.latitude           as latitud11_1_,
+       flat0_.longitude          as longitu12_1_,
+       flat0_.metro              as metro13_1_,
+       flat0_.metro_distance     as metro_d14_1_,
+       flat0_.metro_time         as metro_t15_1_,
+       flat0_.object_type        as object_16_1_,
+       flat0_.price              as price17_1_,
+       flat0_.rooms_amount       as rooms_a18_1_,
+       flat0_.square_metre_price as square_19_1_,
+       flat0_.total_floors       as total_f20_1_,
+       flat0_.wall_material      as wall_ma21_1_
+from public.flat flat0_
+where flat0_.bathroom = ?
+  and flat0_.construction_year <= 2030
+  and flat0_.construction_year >= 1990
+  and (flat0_.wall_material in (?))
+  and flat0_.floor <= 20
+  and flat0_.floor >= 1
+  and flat0_.kitchen_area <= 20
+  and flat0_.kitchen_area >= 10
+  and flat0_.area <= 100
+  and flat0_.area >= 40
+  and flat0_.price <= 15000000
+  and flat0_.price >= 5000000
+  and flat0_.rooms_amount <= 3
+  and flat0_.rooms_amount >= 1
+  and (lower(flat0_.address) like ?)
+  and flat0_.object_type = ?
+  and flat0_.longitude <= 37.649400
+  and flat0_.longitude >= 37.549450
+  and flat0_.latitude <= 55.682200
+  and flat0_.latitude >= 55.662200 limit ?

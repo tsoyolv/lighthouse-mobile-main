@@ -27,6 +27,9 @@ public class FlatDetailsDto implements DtoModel {
     @ApiModelProperty(value = "Цена квадратного метра", example = "300000")
     private BigDecimal squareMetrePrice;
 
+    @ApiModelProperty(value = "Площадь - m2", example = "45")
+    private BigDecimal area;
+
     @ApiModelProperty(value = "Количество комнат", example = "2")
     private Integer roomsAmount;
 

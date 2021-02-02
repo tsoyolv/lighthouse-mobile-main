@@ -18,6 +18,7 @@ public class RealtyDtoMapper implements MapperRegister {
                 field("address", "address").
                 field("price", "price").
                 field("squareMetrePrice", "squareMetrePrice").
+                field("area", "area").
                 field("roomsAmount", "roomsAmount").
                 field("floor", "floor").
                 field("totalFloors", "totalFloors").
