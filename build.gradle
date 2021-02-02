@@ -32,6 +32,7 @@ dependencies {
 	implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
 	implementation "org.apache.commons:commons-lang3:${apacheCommonLangVersion}"
 	implementation "javax.xml.bind:jaxb-api:${jaxbiversion}"
+	implementation "commons-io:commons-io:${apacheCommonIOVersion}"
 }
 
 java {

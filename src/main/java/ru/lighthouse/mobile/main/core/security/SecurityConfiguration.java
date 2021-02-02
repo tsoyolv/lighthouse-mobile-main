@@ -20,6 +20,7 @@ import static ru.lighthouse.mobile.main.core.security.SecurityRole.ADMIN;
 import static ru.lighthouse.mobile.main.core.security.SecurityRole.INTEGRATION;
 import static ru.lighthouse.mobile.main.core.security.SecurityRole.MOBILE;
 import static ru.lighthouse.mobile.main.core.swagger.SwaggerConfig.SWAGGER_URIES;
+import static ru.lighthouse.mobile.main.rest.controller.image.ImageController.IMAGES_URI;
 
 
 @EnableWebSecurity
@@ -47,7 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(failedAuthenticationEntryPointObject())
                 .and()
                 .authorizeRequests()
-                .antMatchers(HEALTH_URI).permitAll()
+                .antMatchers(HEALTH_URI, IMAGES_URI + "/**").permitAll()
                 .anyRequest();
         if (enabled) {
             authorizedUrl.hasAnyRole(INTEGRATION.name(), ADMIN.name(), MOBILE.name());

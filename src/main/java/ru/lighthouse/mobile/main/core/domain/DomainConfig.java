@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @Getter
-public class DomainParams {
+public class DomainConfig {
 
     @Value("${domain.name}")
     private String name;

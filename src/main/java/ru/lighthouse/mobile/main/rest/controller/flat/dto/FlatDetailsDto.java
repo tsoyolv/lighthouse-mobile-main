@@ -59,4 +59,40 @@ public class FlatDetailsDto implements DtoModel {
 
     @ApiModelProperty(value = "История изменения цены")
     private List<FlatPriceHistoryDto> priceHistory;
+
+    @ApiModelProperty(value = "Изображения")
+    private List<FlatImageDto> images;
+
+
+    // DETAILS
+
+    @ApiModelProperty(value = "Заголовок")
+    private String title;
+
+    @ApiModelProperty(value = "Описание объявления")
+    private String description;
+
+    @ApiModelProperty(value = "Площадь кухни -  m2", example = "15")
+    private BigDecimal kitchenArea;
+
+    @ApiModelProperty(value = "Площадь жилая -  m2", example = "35")
+    private BigDecimal livingArea;
+
+    @ApiModelProperty(value = "Балкон - есть / нет")
+    private Boolean balcony;
+
+    @ApiModelProperty(value = "Площадь балкона -m2", example = "5")
+    private BigDecimal balconyArea;
+
+    @ApiModelProperty(value = "Лоджия - есть / нет")
+    private Boolean loggia;
+
+    @ApiModelProperty(value = "Лоджия площадь  -  m2", example = "10")
+    private BigDecimal loggiaArea;
+
+    @ApiModelProperty(value = "Санузел - совмещенный / раздельный")
+    private String bathroom;
+
+    @ApiModelProperty(value = "Санузел - шт.", example = "1")
+    private Integer bathroomAmount;
 }

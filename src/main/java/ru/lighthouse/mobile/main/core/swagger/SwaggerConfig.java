@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import ru.lighthouse.mobile.main.core.domain.DomainParams;
+import ru.lighthouse.mobile.main.core.domain.DomainConfig;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -29,7 +29,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
             UI_HTML,
             WEB_JARS};
 
-    private final DomainParams domainParams;
+    private final DomainConfig domainConfig;
 
     @Bean
     public Docket api() {
@@ -57,14 +57,14 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                         "\n\nДля авторизации в приложение используется СМС-аутентификация.\n" +
                         "I. Для запроса кода OTP используется:\n" +
                         "    POST method\n" +
-                        "    [" + domainParams.getUrl() + "/login/otp](" + domainParams.getUrl() + "/login/otp)\n" +
+                        "    [" + domainConfig.getUrl() + "/login/otp](" + domainConfig.getUrl() + "/login/otp)\n" +
                         "    Параметры: \"phoneNumber\"\n" +
                         "    Ответы:\n" +
                         "        1. 200 OK - смс отослали\n" +
                         "        2. 422 PHONE_NUMBER_INVALID -неверный формат телефона, должен быть <7xxxxxxxxxx>\n" +
                         "II. Для авторизации:\n" +
                         "    POST method\n" +
-                        "    [" + domainParams.getUrl() + "/login/auth](" + domainParams.getUrl() + "/login/auth)\n" +
+                        "    [" + domainConfig.getUrl() + "/login/auth](" + domainConfig.getUrl() + "/login/auth)\n" +
                         "    Параметры: \"phoneNumber\", \"otp\"\n А также обязателен параметр в заголовке 'User-Agent-Type' который должен быть заполнен значением 'MOBILE'!!" +
                         "\n\nНа каждый запрос будет отсылаться обновленный TOKEN, можно использовать и старый, но он протухает через установленное время на сервере.",
                 "BETA версия",

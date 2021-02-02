@@ -22,6 +22,9 @@ spring:
         default_schema: public
     show-sql: false
 
+file-storage:
+  images: .${shared-folders.files}/images
+
 # --------------------------------------------- Shared properties ------------------------------------------------------
 domain:
   name: purevaluation
@@ -55,3 +58,6 @@ security:
 integration:
   uri:
     user: /integration/user
+
+shared-folders:
+  files: /sharedfiles
