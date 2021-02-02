@@ -16,4 +16,7 @@ public class DomainConfig {
 
     @Value("${domain.url}")
     private String url;
+
+    @Value("${server.servlet.context-path}")
+    private String serverContextPath;
 }

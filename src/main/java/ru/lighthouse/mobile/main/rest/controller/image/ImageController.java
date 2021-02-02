@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.lighthouse.mobile.main.core.file.FileStorageConfig;
 
 import javax.transaction.Transactional;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class ImageController {
     )
     @ApiOperation("Скачивание картинки для квартиры по идентификатору картинки")
     @Transactional
-    public byte[] getFlatImage(@PathVariable @Min(1) String path) throws IOException {
+    public byte[] getFlatImage(@PathVariable @NotBlank String path) throws IOException {
         return IOUtils.toByteArray(new FileInputStream(fileStorageConfig.getImagesPath() + File.separator + path));
     }
 }

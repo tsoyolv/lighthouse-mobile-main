@@ -67,7 +67,10 @@ public class FlatDetailsDtoMapper {
 
     private String makeUrl(String url, String filePath) {
         if (StringUtils.isNotEmpty(filePath)) {
-            return domainConfig.getUrl() + IMAGES_URI + "/" + filePath;
+            return domainConfig.getUrl()
+                    + domainConfig.getServerContextPath()
+                    + IMAGES_URI
+                    + "/" + filePath;
         } else {
             return url;
         }
