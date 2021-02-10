@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.core.security.jwt;
+package ru.lighthouse.mobile.main.config.security.jwt;
 
 
 import lombok.RequiredArgsConstructor;

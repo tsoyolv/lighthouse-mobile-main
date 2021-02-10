@@ -27,7 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static ru.lighthouse.mobile.main.core.db.DataTypeConstants.MONEY_SCALING;
+import static ru.lighthouse.mobile.main.core.DbDataTypeConstants.MONEY_SCALING;
 
 @Entity
 @Table(name = "FLAT")

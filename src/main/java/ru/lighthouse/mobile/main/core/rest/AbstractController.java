@@ -27,7 +27,7 @@ import java.util.Optional;
 import static java.util.Objects.nonNull;
 import static ru.lighthouse.mobile.main.core.rest.CommonUri.URI_PART_ID;
 import static ru.lighthouse.mobile.main.core.rest.CommonUri.URI_PART_PAGE;
-import static ru.lighthouse.mobile.main.core.security.SecurityRole.ROLE_ADMIN_STR;
+import static ru.lighthouse.mobile.main.config.security.SecurityRole.ROLE_ADMIN_STR;
 
 @RequiredArgsConstructor
 public abstract class AbstractController<D extends EntityModel, DS extends EntityService<D>, DTO extends DtoModel> {

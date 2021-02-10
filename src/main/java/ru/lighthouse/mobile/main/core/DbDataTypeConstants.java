@@ -1,9 +1,9 @@
-package ru.lighthouse.mobile.main.core.db;
+package ru.lighthouse.mobile.main.core;
 
 
 import java.math.RoundingMode;
 
-public interface DataTypeConstants {
+public interface DbDataTypeConstants {
     RoundingMode ROUND_MODE = RoundingMode.CEILING;
     int MONEY_SCALING = 2;
 }

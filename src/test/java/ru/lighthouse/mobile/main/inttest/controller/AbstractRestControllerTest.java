@@ -10,7 +10,7 @@ import ru.lighthouse.mobile.main.core.dao.EntityService;
 import ru.lighthouse.mobile.main.core.rest.dto.PageRequestDto;
 import ru.lighthouse.mobile.main.core.rest.dto.SearchCriteriaDto;
 import ru.lighthouse.mobile.main.core.rest.dto.SortedFieldDto;
-import ru.lighthouse.mobile.main.core.security.jwt.JWTService;
+import ru.lighthouse.mobile.main.config.security.jwt.JWTService;
 import ru.lighthouse.mobile.main.service.user.UserService;
 import ru.lighthouse.mobile.main.service.user.entity.User;
 import ru.lighthouse.mobile.main.inttest.AbstractIntegrationTest;

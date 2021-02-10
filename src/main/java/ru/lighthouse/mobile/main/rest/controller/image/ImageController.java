@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.lighthouse.mobile.main.core.file.FileStorageConfig;
+import ru.lighthouse.mobile.main.config.FileStorageConfig;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;

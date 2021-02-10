@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.core.security.jwt;
+package ru.lighthouse.mobile.main.config.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -27,7 +27,7 @@ public class JWTService {
     @Value("${security.jwt.prefix:Basic }")
     private String prefix;
     @Value("${security.jwt.expiration}")
-    private int expiration;
+    private long expiration;
     @Value("${security.jwt.secret}")
     private String secret;
 

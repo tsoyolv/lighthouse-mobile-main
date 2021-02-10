@@ -3,7 +3,7 @@ package ru.lighthouse.mobile.main.rest.controller.flat.mapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import ru.lighthouse.mobile.main.core.domain.DomainConfig;
+import ru.lighthouse.mobile.main.config.DomainConfig;
 import ru.lighthouse.mobile.main.rest.controller.flat.dto.FlatDetailsDto;
 import ru.lighthouse.mobile.main.rest.controller.flat.dto.FlatImageDto;
 import ru.lighthouse.mobile.main.rest.controller.flat.dto.FlatPriceHistoryDto;

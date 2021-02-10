@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.core.swagger;
+package ru.lighthouse.mobile.main.config;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.text.StrSubstitutor;
@@ -7,8 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import ru.lighthouse.mobile.main.core.domain.DomainConfig;
-import ru.lighthouse.mobile.main.core.file.FileUtils;
+import ru.lighthouse.mobile.main.core.FileUtils;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -17,7 +16,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
@@ -61,7 +59,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 getApiDescription(),
                 "VERSION " + buildProperties.getVersion(),
                 "Условия использования API",
-                new Contact("Oleg Tsoy", "https://github.com/tsoyolv", "tsoyolv@gmail.com"),
+                new Contact("Oleg Tsoy", "https://github.com/tsoyolv", "oleg.tcoi.work@gmail.com"),
                 "Лицензия API", "API license URL", Collections.emptyList());
     }
 
@@ -74,12 +72,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                         "otpParamName", "otp",
                         "phoneNumberParamName", "phoneNumber"),
                 "{", "}");
-        String description;
-        try {
-            description = FileUtils.readAllFileAsString("swagger-apiinfo-description.html");
-        } catch (IOException e) {
-            description = "NON";
-        }
+        String description = FileUtils.readAllFileAsString("swagger-apiinfo-description.html");
         return sub.replace(description);
     }
 }

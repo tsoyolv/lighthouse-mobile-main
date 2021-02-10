@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.core.rest;
+package ru.lighthouse.mobile.main.config;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

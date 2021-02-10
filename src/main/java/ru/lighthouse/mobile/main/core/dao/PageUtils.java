@@ -8,7 +8,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public final class PageUtils {
-    public static <T> void forEachAllPages(int pageSize, Function<? super Pageable, ? extends Page<T>> getPage, Consumer<? super T> action) {
+    public static <T> void forEachAllPages(int pageSize,
+                                           Function<? super Pageable, ? extends Page<T>> getPage,
+                                           Consumer<? super T> action) {
         Pageable pageRequest = PageRequest.of(0, pageSize);
         Page<T> page;
         do {

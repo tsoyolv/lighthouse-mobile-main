@@ -12,7 +12,7 @@ import ru.lighthouse.mobile.main.service.user.entity.User;
 
 import java.util.HashSet;
 
-import static ru.lighthouse.mobile.main.core.security.SecurityRole.ROLE_INTEGRATION_STR;
+import static ru.lighthouse.mobile.main.config.security.SecurityRole.ROLE_INTEGRATION_STR;
 
 
 @RestController

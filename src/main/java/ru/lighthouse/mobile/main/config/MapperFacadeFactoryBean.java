@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.core.rest.mapper;
+package ru.lighthouse.mobile.main.config;
 
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
@@ -7,6 +7,7 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
+import ru.lighthouse.mobile.main.core.rest.mapper.MapperRegister;
 
 import java.util.Map;
 

@@ -19,5 +19,4 @@ public class App {
 	public String helloGradle() {
 		return HEALTH_RESPONSE;
 	}
-
 }

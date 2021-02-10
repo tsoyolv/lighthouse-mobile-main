@@ -9,7 +9,7 @@ import ru.lighthouse.mobile.main.service.user.repository.UserRepository;
 import javax.transaction.Transactional;
 import java.util.Collections;
 
-import static ru.lighthouse.mobile.main.core.security.SecurityRole.MOBILE;
+import static ru.lighthouse.mobile.main.config.security.SecurityRole.MOBILE;
 
 @Service
 @RequiredArgsConstructor

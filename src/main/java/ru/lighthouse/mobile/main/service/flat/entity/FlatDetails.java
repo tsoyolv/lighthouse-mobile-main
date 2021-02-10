@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import static ru.lighthouse.mobile.main.core.db.DataTypeConstants.MONEY_SCALING;
+import static ru.lighthouse.mobile.main.core.DbDataTypeConstants.MONEY_SCALING;
 
 
 @Entity @Table(name = "FLAT_DETAILS")
