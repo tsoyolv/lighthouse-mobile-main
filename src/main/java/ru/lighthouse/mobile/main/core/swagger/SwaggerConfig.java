@@ -1,11 +1,14 @@
 package ru.lighthouse.mobile.main.core.swagger;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.text.StrSubstitutor;
+import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import ru.lighthouse.mobile.main.core.domain.DomainConfig;
+import ru.lighthouse.mobile.main.core.file.FileUtils;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -14,7 +17,9 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.io.IOException;
 import java.util.Collections;
+import java.util.Map;
 
 @Configuration
 @EnableSwagger2
@@ -30,6 +35,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
             WEB_JARS};
 
     private final DomainConfig domainConfig;
+    private final BuildProperties buildProperties;
 
     @Bean
     public Docket api() {
@@ -52,24 +58,28 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     private ApiInfo apiInfo() {
         return new ApiInfo(
                 "Документация для MOBILE API Purevision",
-                "Закрытое API для работы с MOBILE API Purevision." +
-                        "\nДля каждого запроса требуется TOKEN, который можно получить при авторизации в Purevision." +
-                        "\n\nДля авторизации в приложение используется СМС-аутентификация.\n" +
-                        "I. Для запроса кода OTP используется:\n" +
-                        "    POST method\n" +
-                        "    [" + domainConfig.getUrl() + "/login/otp](" + domainConfig.getUrl() + "/login/otp)\n" +
-                        "    Параметры: \"phoneNumber\"\n" +
-                        "    Ответы:\n" +
-                        "        1. 200 OK - смс отослали\n" +
-                        "        2. 422 PHONE_NUMBER_INVALID -неверный формат телефона, должен быть <7xxxxxxxxxx>\n" +
-                        "II. Для авторизации:\n" +
-                        "    POST method\n" +
-                        "    [" + domainConfig.getUrl() + "/login/auth](" + domainConfig.getUrl() + "/login/auth)\n" +
-                        "    Параметры: \"phoneNumber\", \"otp\"\n А также обязателен параметр в заголовке 'User-Agent-Type' который должен быть заполнен значением 'MOBILE'!!" +
-                        "\n\nНа каждый запрос будет отсылаться обновленный TOKEN, можно использовать и старый, но он протухает через установленное время на сервере.",
-                "BETA версия",
+                getApiDescription(),
+                "VERSION " + buildProperties.getVersion(),
                 "Условия использования API",
                 new Contact("Oleg Tsoy", "https://github.com/tsoyolv", "tsoyolv@gmail.com"),
                 "Лицензия API", "API license URL", Collections.emptyList());
+    }
+
+    private String getApiDescription() {
+        StrSubstitutor sub = new StrSubstitutor(
+                Map.of(
+                        "domainUrl", domainConfig.getUrl(),
+                        "otpUri", "/login/otp",
+                        "authUri", "/login/auth",
+                        "otpParamName", "otp",
+                        "phoneNumberParamName", "phoneNumber"),
+                "{", "}");
+        String description;
+        try {
+            description = FileUtils.readAllFileAsString("swagger-apiinfo-description.html");
+        } catch (IOException e) {
+            description = "NON";
+        }
+        return sub.replace(description);
     }
 }

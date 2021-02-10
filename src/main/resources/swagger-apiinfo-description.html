@@ -1,0 +1,38 @@
+<body>
+<b>Закрытое API для работы с MOBILE API Purevision.</b>
+
+Для каждого запроса требуется <b>TOKEN</b> в заголовке Authorization, который можно получить при авторизации в
+Purevision.
+
+Для авторизации в приложение используется СМС-аутентификация.
+
+<ol>
+    <li>Для запроса кода OTP (OneTimePassword) используется:
+        <ul>
+            <li>POST method <a target="_blank" href="{domainUrl}{otpUri}">{domainUrl}{otpUri}</a></li>
+            <li>Параметры в Uri: {phoneNumberParamName}</li>
+        </ul>
+        Ответы:
+        <ol>
+            <li>200 OK - смс отослали</li>
+            <li>422 PHONE_NUMBER_INVALID -неверный формат телефона, должен быть <7xxxxxxxxxx></li>
+        </ol>
+    </li>
+    <li>Для авторизации используется:
+        <ul>
+            <li>POST method <a target="_blank" href="{domainUrl}{authUri}">{domainUrl}{authUri}</a></li>
+            <li>Параметры в Uri: {phoneNumberParamName}, {otpParamName}.</li>
+            <li>Параметр в заголовке 'User-Agent-Type'
+                который
+                должен быть заполнен значением <b>MOBILE</b>
+            </li>
+        </ul>
+        Ответы:
+        <ol>
+            <li>200 OK + будет <b>TOKEN</b> в заголовке Authorization</li>
+        </ol>
+    </li>
+</ol>
+На каждый запрос будет отсылаться обновленный <b>TOKEN</b>, можно использовать и старый, но он протухает через
+установленное время на сервере.
+</body>
