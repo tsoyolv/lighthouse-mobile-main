@@ -20,19 +20,19 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	runtimeOnly "org.postgresql:postgresql:${postgresVersion}"
-	runtimeOnly "com.h2database:h2:${h2Version}"
 	compileOnly "org.projectlombok:lombok:${lombokVersion}"
 	annotationProcessor "org.projectlombok:lombok"
 	implementation "org.flywaydb:flyway-core:${flywayVersion}"
-	implementation "org.springframework.boot:spring-boot-starter-data-jpa" // FROM root project
-	implementation "org.springframework.boot:spring-boot-starter-security" // FROM root project
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+	implementation "org.springframework.boot:spring-boot-starter-security"
 	implementation "ma.glasnost.orika:orika-core:${orikaVersion}"
 	implementation "io.jsonwebtoken:jjwt:${jjwtversion}"
 	implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
 	implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
 	implementation "org.apache.commons:commons-lang3:${apacheCommonLangVersion}"
-	implementation "javax.xml.bind:jaxb-api:${jaxbiversion}"
-	implementation "commons-io:commons-io:${apacheCommonIOVersion}"
+	//implementation "commons-io:commons-io:${apacheCommonIOVersion}"
+	//runtimeOnly "com.h2database:h2:${h2Version}"
+	//implementation "javax.xml.bind:jaxb-api:${jaxbiversion}"
 }
 
 java {

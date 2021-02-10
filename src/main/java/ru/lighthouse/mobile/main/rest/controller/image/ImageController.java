@@ -3,13 +3,13 @@ package ru.lighthouse.mobile.main.rest.controller.image;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.IOUtils;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.lighthouse.mobile.main.config.FileStorageConfig;
+import ru.lighthouse.mobile.main.lang.apachecommonsio.IOUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
