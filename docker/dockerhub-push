@@ -26,7 +26,6 @@ printf " ============================================\n\n"
 printf "ENTER Docker login: "
 read registryLogin
 printf "Login entered\n\n"
-
 printf '============================================ Docker HUB registry Login: '
 printf $registryLogin
 printf " ============================================\n\n"
@@ -36,16 +35,28 @@ printf "ENTER Docker password: "
 read -s registryPassword
 echo
 printf "Password entered\n\n"
+
 docker logout
 docker login --username $registryLogin --password $registryPassword
+printf '============================================ Docker HUB registry login end ==============================================\n\n'
 
+printf '============================================ Create docker image start ==============================================\n\n'
 ./gradlew clean
 ./gradlew bootJar
 mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
 
 docker build -f docker/Dockerfile -t ${PROJ_NAME}:${PROJ_VERSION} .
 docker tag ${PROJ_NAME}:${PROJ_VERSION} $registryLogin/${PROJ_NAME}:${PROJ_VERSION}
+printf '============================================ Create docker image end ==============================================\n\n'
+
+printf '============================================ Docker push start ==============================================\n\n'
 docker push $registryLogin/${PROJ_NAME}:${PROJ_VERSION}
 
 docker tag ${PROJ_NAME}:${PROJ_VERSION} $registryLogin/${PROJ_NAME}:latest
 docker push $registryLogin/${PROJ_NAME}:latest
+printf '============================================ Docker push end ==============================================\n\n'
+
+printf '============================================ Delete image from local machine start ==============================================\n\n'
+docker image rm $registryLogin/${PROJ_NAME}:${PROJ_VERSION}
+docker image rm $registryLogin/${PROJ_NAME}:latest
+printf '============================================ Delete image from local machine end ==============================================\n\n'

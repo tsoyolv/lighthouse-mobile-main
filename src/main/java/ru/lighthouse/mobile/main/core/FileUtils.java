@@ -3,6 +3,9 @@ package ru.lighthouse.mobile.main.core;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,11 +14,22 @@ import java.nio.file.StandardOpenOption;
 public final class FileUtils {
 
     public static String readAllFileAsString(String fileName) {
-        try {
-            return new String(Files.readAllBytes(Paths.get("src/main/resources/" + fileName)));
+        InputStream resourceAsStream = FileUtils.class.getClassLoader().getResourceAsStream(fileName);
+        return convertStreamToString(resourceAsStream);
+    }
+
+    private static String convertStreamToString(InputStream is) {
+        StringBuilder strBuilder = new StringBuilder("");
+        try (InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8);
+             BufferedReader reader = new BufferedReader(streamReader)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                strBuilder.append(line);
+            }
         } catch (IOException e) {
             return null;
         }
+        return strBuilder.toString();
     }
 
     public static void splitFileByLineNumbers(Path path, int lineNumbers) throws IOException {
