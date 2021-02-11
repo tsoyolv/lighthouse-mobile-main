@@ -28,9 +28,6 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-	//implementation "commons-io:commons-io:${apacheCommonIOVersion}"
-	//runtimeOnly "com.h2database:h2:${h2Version}"
-	//implementation "javax.xml.bind:jaxb-api:${jaxbiversion}"
 }
 
 java {

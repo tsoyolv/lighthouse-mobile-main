@@ -1,14 +1,18 @@
 #!/usr/bin/env sh
 
 ENV=${1:-gradle}
+ENV2=${2:-settings}
 
 function gradle_properties {
     grep "${1}" ${ENV}.properties|cut -d'=' -f2
 }
 
-PROJ_NAME=lighthouse-mobile-main
+function settings_gradle {
+    grep "${2}" ${ENV2}.gradle|cut -d'=' -f2 | sed 's/ //g' | sed 's/^.//;s/.$//'
+}
+
+PROJ_NAME=$(settings_gradle 'rootProject.name')
 PROJ_VERSION=$(gradle_properties 'lProjectVersion')
-DOCKER_REGISTRY_LOGIN=tsoyolv
 
 printf '============================================ ATTENTION! YOU HAVE TO RUN COMMAND FROM ROOT DIRECTORY ==============================================\n\n'
 
@@ -18,26 +22,30 @@ printf ' '
 printf ${PROJ_VERSION}
 printf " ============================================\n\n"
 
-printf '============================================ Docker HUB registry: '
-printf " login: "
-printf ${DOCKER_REGISTRY_LOGIN}
+# Read Login
+printf "ENTER Docker login: "
+read registryLogin
+printf "Login entered\n\n"
+
+printf '============================================ Docker HUB registry Login: '
+printf $registryLogin
 printf " ============================================\n\n"
 
 # Read Password
 printf "ENTER Docker password: "
-read -s password
+read -s registryPassword
 echo
 printf "Password entered\n\n"
 docker logout
-docker login --username ${DOCKER_REGISTRY_LOGIN} --password $password
+docker login --username $registryLogin --password $registryPassword
 
 ./gradlew clean
 ./gradlew bootJar
 mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
 
 docker build -f docker/Dockerfile -t ${PROJ_NAME}:${PROJ_VERSION} .
-docker tag ${PROJ_NAME}:${PROJ_VERSION} ${DOCKER_REGISTRY_LOGIN}/${PROJ_NAME}:${PROJ_VERSION}
-docker push ${DOCKER_REGISTRY_LOGIN}/${PROJ_NAME}:${PROJ_VERSION}
+docker tag ${PROJ_NAME}:${PROJ_VERSION} $registryLogin/${PROJ_NAME}:${PROJ_VERSION}
+docker push $registryLogin/${PROJ_NAME}:${PROJ_VERSION}
 
-docker tag ${PROJ_NAME}:${PROJ_VERSION} ${DOCKER_REGISTRY_LOGIN}/${PROJ_NAME}:latest
-docker push ${DOCKER_REGISTRY_LOGIN}/${PROJ_NAME}:latest
+docker tag ${PROJ_NAME}:${PROJ_VERSION} $registryLogin/${PROJ_NAME}:latest
+docker push $registryLogin/${PROJ_NAME}:latest
