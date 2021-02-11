@@ -1,7 +1,7 @@
 plugins {
-	id 'java'
-	id 'io.spring.dependency-management' version "${springDMVersion}" apply false
-	id 'org.springframework.boot' version "${springBootVersion}" apply false
+	id 'java' apply true
+	id 'io.spring.dependency-management' version "${springDMVersion}" apply true
+	id 'org.springframework.boot' version "${springBootVersion}" apply true
 }
 
 repositories {
@@ -10,26 +10,24 @@ repositories {
 group = 'ru.lighthouse'
 version = "${lProjectVersion}"
 
-apply plugin: 'java'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'org.springframework.boot'
-
 dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-web"
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
-	runtimeOnly "org.postgresql:postgresql:${postgresVersion}"
-	compileOnly "org.projectlombok:lombok:${lombokVersion}"
-	annotationProcessor "org.projectlombok:lombok"
-	implementation "org.flywaydb:flyway-core:${flywayVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
 	implementation "org.springframework.boot:spring-boot-starter-security"
+	implementation "org.apache.commons:commons-lang3:${apacheCommonLangVersion}"
+	implementation "org.flywaydb:flyway-core:${flywayVersion}"
 	implementation "ma.glasnost.orika:orika-core:${orikaVersion}"
 	implementation "io.jsonwebtoken:jjwt:${jjwtversion}"
 	implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
 	implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
-	implementation "org.apache.commons:commons-lang3:${apacheCommonLangVersion}"
+
+	annotationProcessor "org.projectlombok:lombok"
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	runtimeOnly "org.postgresql:postgresql:${postgresVersion}"
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
 	//implementation "commons-io:commons-io:${apacheCommonIOVersion}"
 	//runtimeOnly "com.h2database:h2:${h2Version}"
 	//implementation "javax.xml.bind:jaxb-api:${jaxbiversion}"

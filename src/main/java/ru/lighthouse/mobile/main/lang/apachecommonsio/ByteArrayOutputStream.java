@@ -1,8 +1,5 @@
 package ru.lighthouse.mobile.main.lang.apachecommonsio;
 
-
-import org.apache.commons.lang3.NotImplementedException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -80,7 +77,7 @@ public class ByteArrayOutputStream extends AbstractByteArrayOutputStream {
 
     @Override
     public InputStream toInputStream() {
-        throw new NotImplementedException();
+        throw new RuntimeException("Not Implemented");
     }
 
     @Override
