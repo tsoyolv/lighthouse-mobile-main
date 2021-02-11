@@ -22,6 +22,10 @@ spring:
         default_schema: public
     show-sql: false
 
+aspect:
+  track-time:
+    enabled: true
+
 file-storage:
   images: .${shared-folders.files}/images
 
