@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.core.tracktime;
+package ru.lighthouse.mobile.main.config.tracktime;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

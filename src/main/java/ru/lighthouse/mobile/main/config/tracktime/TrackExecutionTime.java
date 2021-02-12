@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.core.tracktime;
+package ru.lighthouse.mobile.main.config.tracktime;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.lighthouse.mobile.main.core.tracktime.TrackExecutionTime;
+import ru.lighthouse.mobile.main.config.tracktime.TrackExecutionTime;
 import ru.lighthouse.mobile.main.rest.controller.flat.dto.FlatDetailsDto;
 import ru.lighthouse.mobile.main.rest.controller.flat.mapper.FlatDetailsDtoMapper;
 import ru.lighthouse.mobile.main.service.flat.FlatService;

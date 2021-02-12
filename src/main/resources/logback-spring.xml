@@ -52,7 +52,12 @@
         <appender-ref ref="SpringRollingFile" />
     </root>
 
-    <logger name="file_default" level="debug" additivity="false">
+    <logger name="ru.lighthouse.mobile.main" level="info" additivity="false">
+        <appender-ref ref="AppFileAppender" />
+        <appender-ref ref="Console" />
+    </logger>
+
+    <logger name="ru.lighthouse.mobile.main.config.tracktime.ExecutionTimeAdvice" level="debug" additivity="false">
         <appender-ref ref="AppFileAppender" />
         <appender-ref ref="Console" />
     </logger>
