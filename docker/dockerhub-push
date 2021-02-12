@@ -12,28 +12,27 @@ function settings_gradle {
 }
 
 PROJ_NAME=$(settings_gradle 'rootProject.name')
-PROJ_VERSION=$(gradle_properties 'lProjectVersion')
+PROJ_VERSION=$(gradle_properties 'projectVersion')
 
 printf '============================================ ATTENTION! YOU HAVE TO RUN COMMAND FROM ROOT DIRECTORY ==============================================\n\n'
 
-printf '============================================ Project versions: '
+printf '============================================ Project name: '
 printf ${PROJ_NAME}
-printf ' '
+printf ', version: '
 printf ${PROJ_VERSION}
 printf " ============================================\n\n"
 
+printf '============================================ Docker HUB registry login start ==============================================\n\n'
 # Read Login
-printf "ENTER Docker login: "
+printf "ENTER DockerHUB login: "
 read registryLogin
-printf "Login entered\n\n"
-printf '============================================ Docker HUB registry Login: '
+printf "Login entered: "
 printf $registryLogin
-printf " ============================================\n\n"
+printf "\n\n"
 
 # Read Password
-printf "ENTER Docker password: "
+printf "ENTER DockerHUB password: "
 read -s registryPassword
-echo
 printf "Password entered\n\n"
 
 docker logout
@@ -44,14 +43,12 @@ printf '============================================ Create docker image start =
 ./gradlew clean
 ./gradlew bootJar
 mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
-
 docker build -f docker/Dockerfile -t ${PROJ_NAME}:${PROJ_VERSION} .
-docker tag ${PROJ_NAME}:${PROJ_VERSION} $registryLogin/${PROJ_NAME}:${PROJ_VERSION}
 printf '============================================ Create docker image end ==============================================\n\n'
 
 printf '============================================ Docker push start ==============================================\n\n'
+docker tag ${PROJ_NAME}:${PROJ_VERSION} $registryLogin/${PROJ_NAME}:${PROJ_VERSION}
 docker push $registryLogin/${PROJ_NAME}:${PROJ_VERSION}
-
 docker tag ${PROJ_NAME}:${PROJ_VERSION} $registryLogin/${PROJ_NAME}:latest
 docker push $registryLogin/${PROJ_NAME}:latest
 printf '============================================ Docker push end ==============================================\n\n'

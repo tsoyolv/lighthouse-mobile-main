@@ -8,13 +8,13 @@ repositories {
 	jcenter()
 }
 group = 'ru.lighthouse'
-version = "${lProjectVersion}"
+version = "${projectVersion}"
 
 dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-web"
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
 	implementation "org.springframework.boot:spring-boot-starter-security"
-	implementation "org.apache.commons:commons-lang3:${apacheCommonLangVersion}"
+	implementation "org.apache.commons:commons-lang3:${apacheCommonsLangVersion}"
 	implementation "org.flywaydb:flyway-core:${flywayVersion}"
 	implementation "ma.glasnost.orika:orika-core:${orikaVersion}"
 	implementation "io.jsonwebtoken:jjwt:${jjwtversion}"
@@ -23,7 +23,7 @@ dependencies {
 
 	annotationProcessor "org.projectlombok:lombok"
 	compileOnly "org.projectlombok:lombok:${lombokVersion}"
-	runtimeOnly "org.postgresql:postgresql:${postgresVersion}"
+	runtimeOnly "org.postgresql:postgresql:${postgreVersion}"
 
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
