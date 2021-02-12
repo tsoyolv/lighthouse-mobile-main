@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.lighthouse.mobile.main.core.tracktime.TrackExecutionTime;
 import ru.lighthouse.mobile.main.rest.controller.flat.dto.FlatDetailsDto;
 import ru.lighthouse.mobile.main.rest.controller.flat.mapper.FlatDetailsDtoMapper;
 import ru.lighthouse.mobile.main.service.flat.FlatService;
@@ -28,6 +29,7 @@ public class FlatController {
 
     @ApiOperation("Получение всей информации по объявлению")
     @GetMapping(URI_PART_ID)
+    @TrackExecutionTime
     public FlatDetailsDto getById(@PathVariable @Min(1) Long id) {
         return flatService.getDetails(id)
                 .map(flatDetailsDtoMapper::map)

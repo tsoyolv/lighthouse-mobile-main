@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.lighthouse.mobile.main.core.rest.dto.BboxPageDto;
+import ru.lighthouse.mobile.main.core.tracktime.TrackExecutionTime;
 import ru.lighthouse.mobile.main.rest.controller.realty.dto.RealtyDto;
 import ru.lighthouse.mobile.main.rest.controller.realty.dto.RealtyMapFilterDto;
 import ru.lighthouse.mobile.main.rest.controller.realty.mapper.RealtyMapFilterMapper;
@@ -32,6 +33,7 @@ public class RealtyMapController {
 
     @PostMapping("/realty")
     @ApiOperation("Карта в мобиле. Получение объектов по карте(BBOX). Можно применять фильтры.")
+    @TrackExecutionTime
     public BboxPageDto<RealtyDto> getRealtyMap(@RequestBody @Valid RealtyMapFilterDto filterRequest) {
         RealtyMapFilterMapper.RealtyMapFilter filter = RealtyMapFilterMapper.map(filterRequest);
         final Page<Flat> page = flatService.getPage(filter.specification, filter.pageable);

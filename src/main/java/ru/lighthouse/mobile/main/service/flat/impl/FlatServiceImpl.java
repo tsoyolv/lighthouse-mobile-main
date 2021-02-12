@@ -1,7 +1,11 @@
 package ru.lighthouse.mobile.main.service.flat.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.lighthouse.mobile.main.core.dao.AbstractEntityService;
+import ru.lighthouse.mobile.main.core.tracktime.TrackExecutionTime;
 import ru.lighthouse.mobile.main.service.flat.FlatService;
 import ru.lighthouse.mobile.main.service.flat.entity.Flat;
 import ru.lighthouse.mobile.main.service.flat.repository.FlatRepository;
@@ -16,8 +20,15 @@ public class FlatServiceImpl extends AbstractEntityService<Flat, FlatRepository>
         super(repository);
     }
 
+    @TrackExecutionTime
+    @Override
+    public Page<Flat> getPage(Specification<Flat> specification, Pageable pageable) {
+        return super.getPage(specification, pageable);
+    }
+
     @Override
     @Transactional
+    @TrackExecutionTime
     public Optional<Flat> getDetails(Long id) {
         Optional<Flat> flatOpt = get(id);
         if (flatOpt.isPresent()) {
