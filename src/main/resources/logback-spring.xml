@@ -46,7 +46,24 @@
         </rollingPolicy>
     </appender>
 
-    <!-- LOG everything at INFO level -->
+    <appender name="TrackTimeFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/mobile-service-track-time-logger.log</file>
+        <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+        </encoder>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily and when the file reaches 5 MegaBytes -->
+            <fileNamePattern>${LOGS}/archived/mobile-service-track-time-logger-%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>5MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
     <root level="info">
         <appender-ref ref="Console" />
         <appender-ref ref="SpringRollingFile" />
@@ -58,8 +75,7 @@
     </logger>
 
     <logger name="ru.lighthouse.mobile.main.config.tracktime.ExecutionTimeAdvice" level="debug" additivity="false">
-        <appender-ref ref="AppFileAppender" />
-        <appender-ref ref="Console" />
+        <appender-ref ref="TrackTimeFileAppender" />
     </logger>
 
 </configuration>

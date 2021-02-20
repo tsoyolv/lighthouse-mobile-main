@@ -15,7 +15,7 @@ import ru.lighthouse.mobile.main.config.security.jwt.JWTService;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-import static ru.lighthouse.mobile.main.App.HEALTH_URI;
+import static ru.lighthouse.mobile.main.App.HEALTH_CHECK_URI;
 import static ru.lighthouse.mobile.main.config.security.SecurityRole.ADMIN;
 import static ru.lighthouse.mobile.main.config.security.SecurityRole.INTEGRATION;
 import static ru.lighthouse.mobile.main.config.security.SecurityRole.MOBILE;
@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(failedAuthenticationEntryPointObject())
                 .and()
                 .authorizeRequests()
-                .antMatchers(HEALTH_URI, IMAGES_URI + "/**").permitAll()
+                .antMatchers(HEALTH_CHECK_URI, IMAGES_URI + "/**").permitAll()
                 .anyRequest();
         if (enabled) {
             authorizedUrl.hasAnyRole(INTEGRATION.name(), ADMIN.name(), MOBILE.name());

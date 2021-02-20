@@ -12,25 +12,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 public final class FileUtils {
-
-    public static String readAllFileAsString(String fileName) {
-        InputStream resourceAsStream = FileUtils.class.getClassLoader().getResourceAsStream(fileName);
-        return convertStreamToString(resourceAsStream);
-    }
-
-    private static String convertStreamToString(InputStream is) {
-        StringBuilder strBuilder = new StringBuilder("");
-        try (InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8);
-             BufferedReader reader = new BufferedReader(streamReader)) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                strBuilder.append(line);
-            }
-        } catch (IOException e) {
-            return null;
-        }
-        return strBuilder.toString();
-    }
+    private FileUtils() {}
 
     public static void splitFileByLineNumbers(Path path, int lineNumbers) throws IOException {
         int lineNumbersTemp = lineNumbers;
@@ -53,5 +35,24 @@ public final class FileUtils {
             Files.writeString(newPath, System.getProperty("line.separator"), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         }
         reader.close();
+    }
+
+    public static String readAllFileAsString(String fileName) {
+        InputStream resourceAsStream = FileUtils.class.getClassLoader().getResourceAsStream(fileName);
+        return convertStreamToString(resourceAsStream);
+    }
+
+    private static String convertStreamToString(InputStream is) {
+        StringBuilder strBuilder = new StringBuilder("");
+        try (InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8);
+             BufferedReader reader = new BufferedReader(streamReader)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                strBuilder.append(line);
+            }
+        } catch (IOException e) {
+            return null;
+        }
+        return strBuilder.toString();
     }
 }
