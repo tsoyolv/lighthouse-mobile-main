@@ -10,8 +10,6 @@ import ru.lighthouse.mobile.main.integration.inbound.user.dto.UserIntegrationDto
 import ru.lighthouse.mobile.main.service.user.UserService;
 import ru.lighthouse.mobile.main.service.user.entity.User;
 
-import java.util.HashSet;
-
 import static ru.lighthouse.mobile.main.config.security.SecurityRole.ROLE_INTEGRATION_STR;
 
 
@@ -23,8 +21,7 @@ public class UserIntegrationController {
 
     @PostMapping("${integration.uri.user}")
     @Secured({ROLE_INTEGRATION_STR})
-    public UserIntegrationDto createOrUpdateUser(@RequestBody UserIntegrationDto userIntegrationDto){
-        userIntegrationDto.setAuthorities(new HashSet<>());
+    public UserIntegrationDto createOrUpdateUser(@RequestBody UserIntegrationDto userIntegrationDto) {
         User user = mapper.map(userIntegrationDto, User.class);
         User created = userService.getOrCreate(user);
         return mapper.map(created, UserIntegrationDto.class);
