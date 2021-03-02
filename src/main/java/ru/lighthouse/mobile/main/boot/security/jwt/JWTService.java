@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.config.security.jwt;
+package ru.lighthouse.mobile.main.boot.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.config.security;
+package ru.lighthouse.mobile.main.boot.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -74,7 +74,7 @@
         <appender-ref ref="Console" />
     </logger>
 
-    <logger name="ru.lighthouse.mobile.main.config.tracktime.ExecutionTimeAdvice" level="debug" additivity="false">
+    <logger name="ru.lighthouse.mobile.main.boot.tracktime.TrackExecutionTimeAspect" level="debug" additivity="false">
         <appender-ref ref="TrackTimeFileAppender" />
     </logger>
 

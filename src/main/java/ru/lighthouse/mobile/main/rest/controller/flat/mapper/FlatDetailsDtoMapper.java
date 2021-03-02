@@ -3,7 +3,7 @@ package ru.lighthouse.mobile.main.rest.controller.flat.mapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import ru.lighthouse.mobile.main.config.DomainConfig;
+import ru.lighthouse.mobile.main.boot.property.DomainProperties;
 import ru.lighthouse.mobile.main.rest.controller.flat.dto.FlatDetailsDto;
 import ru.lighthouse.mobile.main.rest.controller.flat.dto.FlatImageDto;
 import ru.lighthouse.mobile.main.rest.controller.flat.dto.FlatPriceHistoryDto;
@@ -22,7 +22,7 @@ import static ru.lighthouse.mobile.main.rest.controller.image.ImageController.IM
 @RequiredArgsConstructor
 public class FlatDetailsDtoMapper {
 
-    private final DomainConfig domainConfig;
+    private final DomainProperties domainProperties;
 
     public FlatDetailsDto map(Flat flat) {
         FlatDetailsDto dto = new FlatDetailsDto();
@@ -67,8 +67,8 @@ public class FlatDetailsDtoMapper {
 
     private String makeUrl(String url, String filePath) {
         if (StringUtils.isNotEmpty(filePath)) {
-            return domainConfig.getUrl()
-                    + domainConfig.getServerContextPath()
+            return domainProperties.getUrl()
+                    + domainProperties.getServiceContextPath()
                     + IMAGES_URI
                     + "/" + filePath;
         } else {

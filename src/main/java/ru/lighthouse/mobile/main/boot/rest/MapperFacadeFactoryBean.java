@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.config;
+package ru.lighthouse.mobile.main.boot.rest;
 
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;

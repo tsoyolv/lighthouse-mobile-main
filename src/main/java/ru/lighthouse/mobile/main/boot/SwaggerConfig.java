@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.config;
+package ru.lighthouse.mobile.main.boot;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.text.StrSubstitutor;
@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import ru.lighthouse.mobile.main.boot.property.DomainProperties;
 import ru.lighthouse.mobile.main.core.FileUtils;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -32,7 +33,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
             UI_HTML,
             WEB_JARS};
 
-    private final DomainConfig domainConfig;
+    private final DomainProperties domainProperties;
     private final BuildProperties buildProperties;
 
     @Bean
@@ -66,7 +67,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     private String getApiDescription() {
         StrSubstitutor sub = new StrSubstitutor(
                 Map.of(
-                        "domainUrl", domainConfig.getUrl(),
+                        "domainUrl", domainProperties.getUrl(),
                         "otpUri", "/login/otp",
                         "authUri", "/login/auth",
                         "otpParamName", "otp",

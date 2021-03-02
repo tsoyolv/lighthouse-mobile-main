@@ -27,7 +27,7 @@ aspect:
     enabled: true
 
 file-storage:
-  images: .${shared-folders.files}/images
+  images-path: .${shared-folders.files}/images
 
 # --------------------------------------------- Shared properties ------------------------------------------------------
 domain:

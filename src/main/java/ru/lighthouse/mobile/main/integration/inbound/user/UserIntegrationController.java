@@ -10,7 +10,7 @@ import ru.lighthouse.mobile.main.integration.inbound.user.dto.UserIntegrationDto
 import ru.lighthouse.mobile.main.service.user.UserService;
 import ru.lighthouse.mobile.main.service.user.entity.User;
 
-import static ru.lighthouse.mobile.main.config.security.SecurityRole.ROLE_INTEGRATION_STR;
+import static ru.lighthouse.mobile.main.boot.security.SecurityRole.ROLE_INTEGRATION_STR;
 
 
 @RestController

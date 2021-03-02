@@ -8,12 +8,12 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import ru.lighthouse.mobile.main.config.security.jwt.JWTService;
+import ru.lighthouse.mobile.main.boot.security.jwt.JWTService;
 import ru.lighthouse.mobile.main.inttest.AbstractIntegrationTest;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.lighthouse.mobile.main.config.security.SecurityRole.ADMIN;
+import static ru.lighthouse.mobile.main.boot.security.SecurityRole.ADMIN;
 
 public class CheckAuthTest extends AbstractIntegrationTest {
 

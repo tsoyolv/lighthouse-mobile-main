@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.config.security;
+package ru.lighthouse.mobile.main.boot;
 
 
 import org.springframework.beans.factory.annotation.Value;
@@ -9,17 +9,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.context.SecurityContextRepository;
-import ru.lighthouse.mobile.main.config.security.jwt.JWTSecurityContextRepository;
-import ru.lighthouse.mobile.main.config.security.jwt.JWTService;
+import ru.lighthouse.mobile.main.boot.security.jwt.JWTSecurityContextRepository;
+import ru.lighthouse.mobile.main.boot.security.jwt.JWTService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import static ru.lighthouse.mobile.main.App.HEALTH_CHECK_URI;
-import static ru.lighthouse.mobile.main.config.security.SecurityRole.ADMIN;
-import static ru.lighthouse.mobile.main.config.security.SecurityRole.INTEGRATION;
-import static ru.lighthouse.mobile.main.config.security.SecurityRole.MOBILE;
-import static ru.lighthouse.mobile.main.config.SwaggerConfig.SWAGGER_URIES;
+import static ru.lighthouse.mobile.main.boot.security.SecurityRole.ADMIN;
+import static ru.lighthouse.mobile.main.boot.security.SecurityRole.INTEGRATION;
+import static ru.lighthouse.mobile.main.boot.security.SecurityRole.MOBILE;
+import static ru.lighthouse.mobile.main.boot.SwaggerConfig.SWAGGER_URIES;
 import static ru.lighthouse.mobile.main.rest.controller.image.ImageController.IMAGES_URI;
 
 

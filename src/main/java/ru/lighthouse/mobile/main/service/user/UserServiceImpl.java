@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.Set;
 
-import static ru.lighthouse.mobile.main.config.security.SecurityRole.MOBILE;
+import static ru.lighthouse.mobile.main.boot.security.SecurityRole.MOBILE;
 
 @Service
 public class UserServiceImpl implements UserService {

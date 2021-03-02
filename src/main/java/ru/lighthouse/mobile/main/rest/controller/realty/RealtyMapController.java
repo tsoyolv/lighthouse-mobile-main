@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.lighthouse.mobile.main.core.rest.dto.BboxPageDto;
-import ru.lighthouse.mobile.main.config.tracktime.TrackExecutionTime;
+import ru.lighthouse.mobile.main.boot.tracktime.TrackExecutionTime;
 import ru.lighthouse.mobile.main.rest.controller.realty.dto.RealtyDto;
 import ru.lighthouse.mobile.main.rest.controller.realty.dto.RealtyMapFilterDto;
 import ru.lighthouse.mobile.main.rest.controller.realty.mapper.RealtyMapFilterMapper;

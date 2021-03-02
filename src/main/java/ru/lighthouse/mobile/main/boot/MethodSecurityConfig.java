@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.config.security;
+package ru.lighthouse.mobile.main.boot;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
