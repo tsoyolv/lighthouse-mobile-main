@@ -26,6 +26,11 @@ aspect:
   track-time:
     enabled: true
 
+swagger:
+  config-locations:
+    api-info: swagger/api-info.json
+    api-info-description: swagger/api-info-description.html
+
 file-storage:
   images-path: .${shared-folders.files}/images
 

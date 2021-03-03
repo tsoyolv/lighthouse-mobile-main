@@ -16,11 +16,11 @@ public class DomainProperties {
         this.url = url;
     }
 
-    private String name;
+    private final String name;
 
-    private String host;
+    private final String host;
 
-    private String url;
+    private final String url;
 
     @Value("${server.servlet.context-path}")
     private String serviceContextPath;

@@ -1,13 +1,13 @@
 package ru.lighthouse.mobile.main.boot;
 
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.text.StrSubstitutor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import ru.lighthouse.mobile.main.boot.property.DomainProperties;
+import ru.lighthouse.mobile.main.boot.swagger.SwaggerApiInfo;
 import ru.lighthouse.mobile.main.core.FileUtils;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -22,19 +22,29 @@ import java.util.Map;
 
 @Configuration
 @EnableSwagger2
-@RequiredArgsConstructor
 public class SwaggerConfig extends WebMvcConfigurationSupport {
     private static final String WEB_JARS = "/webjars/**";
-    private static final String UI_HTML = "/swagger-ui.html";
+    public static final String UI_HTML = "swagger-ui.html";
+    public static final String UI_HTML_URI = "/" + UI_HTML;
+    public static final String URI = "/swagger";
     public static final String[] SWAGGER_URIES = new String[]{"/v2/api-docs",
             "/configuration/ui",
             "/swagger-resources/**",
             "/configuration/security",
-            UI_HTML,
+            UI_HTML_URI,
+            URI,
             WEB_JARS};
 
-    private final DomainProperties domainProperties;
     private final BuildProperties buildProperties;
+    private final SwaggerApiInfo apiInfo;
+
+    public SwaggerConfig(BuildProperties buildProperties,
+                         @Value("${swagger.config-locations.api-info}") String apiInfoPath,
+                         @Value("${swagger.config-locations.api-info-description}") String apiInfoDescriptionPath) {
+        this.buildProperties = buildProperties;
+        this.apiInfo = FileUtils.readObjectFromJsonFile(apiInfoPath, SwaggerApiInfo.class);
+        this.apiInfo.getDescription().setHtml(apiInfoDescriptionPath);
+    }
 
     @Bean
     public Docket api() {
@@ -48,7 +58,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(UI_HTML)
+        registry.addResourceHandler(UI_HTML_URI)
                 .addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler(WEB_JARS)
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
@@ -56,24 +66,19 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Документация для MOBILE API Purevision",
-                getApiDescription(),
+                apiInfo.getTitle(),
+                getApiDescription(apiInfo.getDescription()),
                 "VERSION " + buildProperties.getVersion(),
-                "Условия использования API",
-                new Contact("Oleg Tsoy", "https://github.com/tsoyolv", "oleg.tcoi.work@gmail.com"),
-                "Лицензия API", "API license URL", Collections.emptyList());
+                apiInfo.getTermsUrl(),
+                new Contact(apiInfo.getContact().getName(), apiInfo.getContact().getUrl(), apiInfo.getContact().getEmail()),
+                apiInfo.getLicense().getName(), apiInfo.getLicense().getUrl(), Collections.emptyList());
     }
 
-    private String getApiDescription() {
-        StrSubstitutor sub = new StrSubstitutor(
-                Map.of(
-                        "domainUrl", domainProperties.getUrl(),
-                        "otpUri", "/login/otp",
-                        "authUri", "/login/auth",
-                        "otpParamName", "otp",
-                        "phoneNumberParamName", "phoneNumber"),
-                "{", "}");
-        String description = FileUtils.readAllFileAsString("swagger-apiinfo-description.html");
-        return sub.replace(description);
+    private String getApiDescription(SwaggerApiInfo.Description description) {
+        Map<String, String> htmlSubstitution = description.getHtmlSubstitution();
+        htmlSubstitution.put("projectName", apiInfo.getProjectName());
+        StrSubstitutor sub = new StrSubstitutor(htmlSubstitution, "{", "}");
+        String descriptionInfo = FileUtils.readAllFileAsString(description.getHtml());
+        return sub.replace(descriptionInfo);
     }
 }

@@ -1,0 +1,23 @@
+{
+  "projectName": "Purevision",
+  "title": "Документация для MOBILE API Purevision",
+  "termsUrl": "termsUrl",
+  "contact": {
+    "name": "Oleg Tsoy",
+    "email": "oleg.tcoi.work@gmail.com",
+    "url": "https://github.com/tsoyolv"
+  },
+  "license": {
+    "name": "Лицензия API",
+    "url": "API license URL"
+  },
+  "description": {
+    "htmlSubstitution": {
+      "domainUrl": "https://purevaluation.ru",
+      "otpUri": "/login/otp",
+      "authUri": "/login/auth",
+      "otpParamName": "otp",
+      "phoneNumberParamName": "phoneNumber"
+    }
+  }
+}

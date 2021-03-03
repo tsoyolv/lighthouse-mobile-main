@@ -11,5 +11,5 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 @AllArgsConstructor
 public class FileStorageProperties {
 
-    private String imagesPath;
+    private final String imagesPath;
 }
