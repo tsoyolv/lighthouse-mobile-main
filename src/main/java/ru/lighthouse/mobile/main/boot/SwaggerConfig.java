@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import ru.lighthouse.mobile.main.boot.swagger.SwaggerApiInfo;
-import ru.lighthouse.mobile.main.core.FileUtils;
+import ru.lighthouse.mobile.main.core.ResourcesUtils;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -42,7 +42,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                          @Value("${swagger.config-locations.api-info}") String apiInfoPath,
                          @Value("${swagger.config-locations.api-info-description}") String apiInfoDescriptionPath) {
         this.buildProperties = buildProperties;
-        this.apiInfo = FileUtils.readObjectFromJsonFile(apiInfoPath, SwaggerApiInfo.class);
+        this.apiInfo = ResourcesUtils.readResourceAsJsonObject(apiInfoPath, SwaggerApiInfo.class);
         this.apiInfo.getDescription().setHtml(apiInfoDescriptionPath);
     }
 
@@ -78,7 +78,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
         Map<String, String> htmlSubstitution = description.getHtmlSubstitution();
         htmlSubstitution.put("projectName", apiInfo.getProjectName());
         StrSubstitutor sub = new StrSubstitutor(htmlSubstitution, "{", "}");
-        String descriptionInfo = FileUtils.readAllFileAsString(description.getHtml());
+        String descriptionInfo = ResourcesUtils.readResourceAsString(description.getHtml());
         return sub.replace(descriptionInfo);
     }
 }
