@@ -45,7 +45,7 @@ public class SearchSpecification<T extends EntityModel> implements Specification
             case "<=" -> builder.lessThanOrEqualTo(from.get(key), criteria.getValue().toString());
             case "=" -> builder.equal(from.get(key), criteria.getValue());
             case "like" -> builder.like(builder.lower(from.get(key)), "%" + criteria.getValue().toString().toLowerCase() + "%");
-            case "in" -> from.get(key).in((List)criteria.getValue());
+            case "in" -> from.get(key).in((List) criteria.getValue());
             default -> null;
         };
     }

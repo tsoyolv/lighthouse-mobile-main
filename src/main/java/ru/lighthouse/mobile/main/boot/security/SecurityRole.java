@@ -3,7 +3,8 @@ package ru.lighthouse.mobile.main.boot.security;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor @Getter
+@Getter
+@AllArgsConstructor
 public enum SecurityRole {
     ADMIN("ROLE_ADMIN"),
     MOBILE("ROLE_MOBILE"),

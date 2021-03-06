@@ -51,24 +51,23 @@ public class JWTService {
         List<String> authorities = grantedAuthorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         long now = System.currentTimeMillis();
         String token = Jwts.builder()
-                .setSubject(subject)
-                .claim(claimAuthoritiesName, authorities)
-                .claim(claimDetailsName, details)
-                .setIssuedAt(new Date(now))
-                .setExpiration(new Date(now + getExpiration() * 1000))  // in milliseconds
-                .signWith(SignatureAlgorithm.HS512, getSecret().getBytes())
-                .compact();
+                           .setSubject(subject)
+                           .claim(claimAuthoritiesName, authorities)
+                           .claim(claimDetailsName, details)
+                           .setIssuedAt(new Date(now))
+                           .setExpiration(new Date(now + getExpiration() * 1000))  // in milliseconds
+                           .signWith(SignatureAlgorithm.HS512, getSecret().getBytes())
+                           .compact();
         return getPrefix() + token;
     }
-    
+
     public Authentication convertJWTTokenToAuthentication(String jwtToken) {
         final Claims claims = Jwts.parser().setSigningKey(getSecret().getBytes()).parseClaimsJws(jwtToken).getBody();
         final String subject = claims.getSubject();
         if (StringUtils.isEmpty(subject)) {
-            return null;    
+            return null;
         }
-        @SuppressWarnings("unchecked")
-        final List<GrantedAuthority> grantedAuthorities = ((List<String>)claims.get(claimAuthoritiesName)).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        @SuppressWarnings("unchecked") final List<GrantedAuthority> grantedAuthorities = ((List<String>) claims.get(claimAuthoritiesName)).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
         final Object details = claims.get(claimDetailsName);
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(subject, null, grantedAuthorities);
         authToken.setDetails(details);

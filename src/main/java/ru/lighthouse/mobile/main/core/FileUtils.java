@@ -9,7 +9,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 public final class FileUtils {
-    private FileUtils() {}
+    private FileUtils() {
+    }
 
     public static void splitFileByLineNumbers(Path path, int lineNumbers) throws IOException {
         int lineNumbersTemp = lineNumbers;

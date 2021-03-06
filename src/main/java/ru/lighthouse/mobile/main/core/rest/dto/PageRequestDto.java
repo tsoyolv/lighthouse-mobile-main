@@ -10,7 +10,8 @@ import java.util.List;
 
 import static ru.lighthouse.mobile.main.core.rest.mapper.PageDtoMapper.MAX_PAGE_SIZE;
 
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class PageRequestDto implements DtoModel {
     public PageRequestDto(int page, int size) {
         this.page = page;

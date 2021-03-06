@@ -9,14 +9,24 @@ import java.util.Optional;
 
 public interface EntityService<T extends EntityModel> {
     T create(T toCreate);
+
     Iterable<T> createAll(Iterable<T> entities);
+
     Optional<T> get(Long id);
+
     List<T> getAll();
+
     List<T> getAllById(Iterable<Long> ids);
+
     Page<T> getPage(Pageable pageable);
+
     Page<T> getPage(Specification<T> specification, Pageable pageable);
+
     T update(T toUpdate);
+
     Iterable<T> updateAll(Iterable<T> entities);
+
     void delete(T toDelete);
+
     void delete(Long toDeleteId);
 }

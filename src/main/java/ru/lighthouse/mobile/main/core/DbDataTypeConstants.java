@@ -6,7 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public final class DbDataTypeConstants {
-    private DbDataTypeConstants() {}
+    private DbDataTypeConstants() {
+    }
 
     public static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd+HH:mm:ss");
     public static final RoundingMode ROUND_MODE = RoundingMode.CEILING;

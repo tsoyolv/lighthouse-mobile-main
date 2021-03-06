@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Scope(value="prototype", proxyMode= ScopedProxyMode.TARGET_CLASS)
+@Scope(value = "prototype", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public abstract class AbstractGenerator<T extends EntityModel, S extends EntityService<T>> implements TestDataGenerator<T> {
     private final List<T> generatedEntities = new ArrayList<>();
 
@@ -28,7 +28,7 @@ public abstract class AbstractGenerator<T extends EntityModel, S extends EntityS
     }
 
     @Override
-    public Iterable<T> generate(T ... entities) {
+    public Iterable<T> generate(T... entities) {
         final Iterable<T> generated = service.createAll(Arrays.asList(entities));
         generated.forEach(generatedEntities::add);
         return generated;

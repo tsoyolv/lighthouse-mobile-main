@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class App {
-	public final static String HEALTH_CHECK_URI = "/health-check";
-	public final static String HEALTH_RESPONSE = "I AM MOBILE! I AM FINE!";
+    public final static String HEALTH_CHECK_URI = "/health-check";
+    public final static String HEALTH_RESPONSE = "I AM MOBILE! I AM FINE!";
 
-	public static void main(String[] args) {
-		SpringApplication.run(App.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(App.class, args);
+    }
 
-	@GetMapping(HEALTH_CHECK_URI)
-	public String healthCheck() {
-		return HEALTH_RESPONSE;
-	}
+    @GetMapping(HEALTH_CHECK_URI)
+    public String healthCheck() {
+        return HEALTH_RESPONSE;
+    }
 }

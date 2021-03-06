@@ -7,7 +7,10 @@ import java.util.Date;
 
 public interface HistoricalEntityModel extends EntityModel {
     void setVersion(Integer version);
+
     Integer getVersion();
+
     void setLastModifyDate(Date date);
+
     Date getLastModifyDate();
 }

@@ -52,8 +52,7 @@ public final class CurrentContext {
     }
 
     private LinkedHashMap<String, Object> getAuthDetails(Authentication authentication) {
-        @SuppressWarnings("unchecked")
-        final LinkedHashMap<String, Object> details = (LinkedHashMap<String, Object>) authentication.getDetails();
+        @SuppressWarnings("unchecked") final LinkedHashMap<String, Object> details = (LinkedHashMap<String, Object>) authentication.getDetails();
         return details;
     }
 }

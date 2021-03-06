@@ -14,7 +14,8 @@ public final class TestResourcesUtils {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    private TestResourcesUtils() {}
+    private TestResourcesUtils() {
+    }
 
     public static <T> T readResourceAsJsonObject(String fileName, Class<T> clazz) {
         try {

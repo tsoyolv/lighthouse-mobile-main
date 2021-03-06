@@ -14,8 +14,8 @@ public class SortedFieldDtoMapper {
             return null;
         }
         return sortedFields.stream()
-                .map(SortedFieldDtoMapper::mapFieldToSort)
-                .reduce(SortedFieldDtoMapper::reduce).orElse(null);
+                           .map(SortedFieldDtoMapper::mapFieldToSort)
+                           .reduce(SortedFieldDtoMapper::reduce).orElse(null);
     }
 
     private static Sort reduce(Sort sort1, Sort sort2) {

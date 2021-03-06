@@ -37,19 +37,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.AuthorizedUrl authorizedUrl =
                 http
-                //.cors().and()
-                .csrf().disable()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .logout().disable()
-                .sessionManagement().disable()
-                .securityContext().securityContextRepository(securityContextRepositoryObject())
-                .and()
-                .exceptionHandling().authenticationEntryPoint(failedAuthenticationEntryPointObject())
-                .and()
-                .authorizeRequests()
-                .antMatchers(HEALTH_CHECK_URI, IMAGES_URI + "/**").permitAll()
-                .anyRequest();
+                        //.cors().and()
+                        .csrf().disable()
+                        .formLogin().disable()
+                        .httpBasic().disable()
+                        .logout().disable()
+                        .sessionManagement().disable()
+                        .securityContext().securityContextRepository(securityContextRepositoryObject())
+                        .and()
+                        .exceptionHandling().authenticationEntryPoint(failedAuthenticationEntryPointObject())
+                        .and()
+                        .authorizeRequests()
+                        .antMatchers(HEALTH_CHECK_URI, IMAGES_URI + "/**").permitAll()
+                        .anyRequest();
         if (enabled) {
             authorizedUrl.hasAnyRole(INTEGRATION.name(), ADMIN.name(), MOBILE.name());
         } else {

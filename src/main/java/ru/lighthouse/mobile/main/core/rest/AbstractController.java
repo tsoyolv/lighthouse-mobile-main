@@ -32,7 +32,7 @@ import static ru.lighthouse.mobile.main.boot.security.SecurityRole.ROLE_ADMIN_ST
 @RequiredArgsConstructor
 public abstract class AbstractController<D extends EntityModel, DS extends EntityService<D>, DTO extends DtoModel> {
     protected final DS domainService;
-    
+
     @PostMapping
     public DTO create(@RequestBody @Valid DTO dto) {
         D mapped = mapDtoToEntityModel(dto);
@@ -78,13 +78,22 @@ public abstract class AbstractController<D extends EntityModel, DS extends Entit
     }
 
     protected abstract D mapDtoToEntityModel(DTO dto);
+
     protected abstract DTO mapEntityModelToDto(D domainModel);
+
     protected abstract List<DTO> mapEntityList(List<D> domainModels);
+
     protected abstract List<D> mapDtoList(List<DTO> dtos);
 
-    protected void beforeCreate(DTO dto, D mapped) {}
-    protected void afterCreate(DTO dto, D created) {}
+    protected void beforeCreate(DTO dto, D mapped) {
+    }
 
-    protected void beforeUpdate(DTO dto, D mapped) {}
-    protected void afterUpdate(DTO dto, D updated) {}
+    protected void afterCreate(DTO dto, D created) {
+    }
+
+    protected void beforeUpdate(DTO dto, D mapped) {
+    }
+
+    protected void afterUpdate(DTO dto, D updated) {
+    }
 }

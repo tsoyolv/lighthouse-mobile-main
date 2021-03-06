@@ -32,7 +32,7 @@ public class FlatController {
     @TrackExecutionTime
     public FlatDetailsDto getById(@PathVariable @Min(1) Long id) {
         return flatService.getDetails(id)
-                .map(flatDetailsDtoMapper::map)
-                .orElseThrow();
+                          .map(flatDetailsDtoMapper::map)
+                          .orElseThrow();
     }
 }

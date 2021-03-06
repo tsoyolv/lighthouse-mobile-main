@@ -39,7 +39,8 @@ public abstract class AbstractRestControllerTest<T extends EntityModel, S extend
     private final List<Long> createdEntitiesIds = new ArrayList<>();
 
     @BeforeEach
-    protected void beforeEachTests() {}
+    protected void beforeEachTests() {
+    }
 
     @AfterEach
     protected void afterEachTests() {

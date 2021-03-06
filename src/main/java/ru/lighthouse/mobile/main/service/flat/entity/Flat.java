@@ -178,11 +178,15 @@ public class Flat implements EntityModel {
     @Column(name = "METRO_TIME")
     private Integer metroTime;
 
-    /** Площадь кухни -  m2 */
+    /**
+     * Площадь кухни -  m2
+     */
     @Column(name = "KITCHEN_AREA")
     private BigDecimal kitchenArea;
 
-    /** Санузел - совмещенный / раздельный */
+    /**
+     * Санузел - совмещенный / раздельный
+     */
     @Column(name = "BATHROOM")
     private String bathroom;
 

@@ -27,7 +27,7 @@ public class ImageController {
 
     private final FileStorageProperties fileStorageProperties;
 
-    @GetMapping(value =  "/**", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/**", produces = MediaType.IMAGE_JPEG_VALUE)
     @ApiOperation("Скачивание изображения по пути к изображению")
     public byte[] getFlatImage(HttpServletRequest request) throws IOException {
         return IOUtils.toByteArray(new FileInputStream(fileStorageProperties.getImagesPath() + File.separator + getRequestURI(request)));

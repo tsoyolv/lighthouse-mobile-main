@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOGS" value="./logs" />
+    <property name="LOGS" value="./logs"/>
 
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -65,17 +65,17 @@
     </appender>
 
     <root level="info">
-        <appender-ref ref="Console" />
-        <appender-ref ref="SpringRollingFile" />
+        <appender-ref ref="Console"/>
+        <appender-ref ref="SpringRollingFile"/>
     </root>
 
     <logger name="ru.lighthouse.mobile.main" level="info" additivity="false">
-        <appender-ref ref="AppFileAppender" />
-        <appender-ref ref="Console" />
+        <appender-ref ref="AppFileAppender"/>
+        <appender-ref ref="Console"/>
     </logger>
 
     <logger name="ru.lighthouse.mobile.main.boot.tracktime.TrackExecutionTimeAspect" level="debug" additivity="false">
-        <appender-ref ref="TrackTimeFileAppender" />
+        <appender-ref ref="TrackTimeFileAppender"/>
     </logger>
 
 </configuration>

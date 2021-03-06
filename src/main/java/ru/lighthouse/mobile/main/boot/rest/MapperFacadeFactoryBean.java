@@ -23,7 +23,7 @@ public class MapperFacadeFactoryBean implements FactoryBean<MapperFacade>, Appli
 
     @Override
     public MapperFacade getObject() throws Exception {
-        DefaultMapperFactory mapperFactory =  new DefaultMapperFactory.Builder().build();
+        DefaultMapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
         registerCustomMappers(mapperFactory);
         return mapperFactory.getMapperFacade();
     }

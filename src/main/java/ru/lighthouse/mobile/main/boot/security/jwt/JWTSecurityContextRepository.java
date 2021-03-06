@@ -56,9 +56,11 @@ public class JWTSecurityContextRepository implements SecurityContextRepository {
 
     private class SaveToAuthorizationHeaderResponseWrapper extends SaveContextOnUpdateOrErrorResponseWrapper {
         private final AuthenticationTrustResolver trustResolver = new AuthenticationTrustResolverImpl();
+
         public SaveToAuthorizationHeaderResponseWrapper(HttpServletResponse response) {
             super(response, true);
         }
+
         @Override
         protected void saveContext(SecurityContext context) {
             HttpServletResponse response = (HttpServletResponse) getResponse();

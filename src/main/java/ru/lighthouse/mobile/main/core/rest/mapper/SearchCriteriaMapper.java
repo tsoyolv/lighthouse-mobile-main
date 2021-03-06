@@ -66,11 +66,11 @@ public final class SearchCriteriaMapper {
         return searchSpec;
     }
 
-    private static<T extends EntityModel> Specification<T> convert(SearchCriteriaDto dto) {
+    private static <T extends EntityModel> Specification<T> convert(SearchCriteriaDto dto) {
         return new SearchSpecification<>(new SearchCriteria(dto.getKey(), dto.getOperation(), dto.getValue()));
     }
 
-    private static<T extends EntityModel> Specification<T> convert(SearchCriteriaPlainDto dto) {
+    private static <T extends EntityModel> Specification<T> convert(SearchCriteriaPlainDto dto) {
         return new SearchSpecification<>(new SearchCriteria(dto.getKey(), dto.getOperation(), dto.getValue()));
     }
 }

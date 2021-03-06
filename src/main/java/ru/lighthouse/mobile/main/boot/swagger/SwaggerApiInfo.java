@@ -5,8 +5,8 @@ import lombok.Setter;
 
 import java.util.Map;
 
-@Setter
 @Getter
+@Setter
 public class SwaggerApiInfo {
     private String projectName;
     private String title;

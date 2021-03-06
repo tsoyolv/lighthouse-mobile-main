@@ -76,5 +76,6 @@ public abstract class AbstractEntityService<T extends EntityModel, R extends Jpa
         repository.deleteById(toDeleteId);
     }
 
-    protected void updateFields(T toUpdate, T fromUpdate) {}
+    protected void updateFields(T toUpdate, T fromUpdate) {
+    }
 }

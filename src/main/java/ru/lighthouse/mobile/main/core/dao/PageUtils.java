@@ -8,7 +8,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public final class PageUtils {
-    private PageUtils() {}
+    private PageUtils() {
+    }
 
     public static <T> void forEachAllPages(int pageSize,
                                            Function<? super Pageable, ? extends Page<T>> getPage,

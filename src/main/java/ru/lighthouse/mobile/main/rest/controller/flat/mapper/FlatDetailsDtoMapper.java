@@ -60,9 +60,9 @@ public class FlatDetailsDtoMapper {
 
     private List<FlatImageDto> mapImages(Set<FlatImage> images) {
         return images.stream()
-                .map(i -> new FlatImageDto(i.getName(),
-                        makeUrl(i.getUrl(), i.getFilePath())))
-                .collect(Collectors.toList());
+                     .map(i -> new FlatImageDto(i.getName(),
+                                                makeUrl(i.getUrl(), i.getFilePath())))
+                     .collect(Collectors.toList());
     }
 
     private String makeUrl(String url, String filePath) {
@@ -78,7 +78,7 @@ public class FlatDetailsDtoMapper {
 
     private List<FlatPriceHistoryDto> mapPriceHistory(List<FlatPriceHistory> priceHistory) {
         return priceHistory.stream()
-                .map(p -> new FlatPriceHistoryDto(p.getPrice(), p.getModifyDate()))
-                .collect(Collectors.toList());
+                           .map(p -> new FlatPriceHistoryDto(p.getPrice(), p.getModifyDate()))
+                           .collect(Collectors.toList());
     }
 }

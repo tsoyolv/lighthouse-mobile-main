@@ -6,7 +6,10 @@ import java.util.Date;
 
 public interface HistoryEntityModel extends EntityModel {
     Date getModifyDate();
+
     void setModifyDate(Date date);
+
     Long getOriginId();
+
     void setOriginId(Long originId);
 }

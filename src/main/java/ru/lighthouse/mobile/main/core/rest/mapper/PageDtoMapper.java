@@ -31,15 +31,15 @@ public class PageDtoMapper {
             return PageRequest.of(page, size);
         } else {
             Optional<Sort> reducedOpt = src.getSortedFields().stream()
-                    .map(PageDtoMapper::mapFieldToSort)
-                    .reduce(PageDtoMapper::reduce);
+                                           .map(PageDtoMapper::mapFieldToSort)
+                                           .reduce(PageDtoMapper::reduce);
             return reducedOpt.
-                    map(orders -> PageRequest.of(page, size, orders))
-                    .orElseGet(() -> PageRequest.of(page, size));
+                                     map(orders -> PageRequest.of(page, size, orders))
+                             .orElseGet(() -> PageRequest.of(page, size));
         }
     }
 
-    public static <S extends EntityModel, D extends DtoModel> PageResponseDto<D> map(Page<S> src, List<D> content){
+    public static <S extends EntityModel, D extends DtoModel> PageResponseDto<D> map(Page<S> src, List<D> content) {
         PageResponseDto<D> pageResponse = new PageResponseDto<>();
         pageResponse.setCurrentPage(src.getNumber());
         pageResponse.setPageSize(src.getSize());
