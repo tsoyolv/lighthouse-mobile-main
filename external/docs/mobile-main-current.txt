@@ -141,3 +141,318 @@ where flat0_.bathroom = ?
   and flat0_.longitude >= 37.549450
   and flat0_.latitude <= 55.682200
   and flat0_.latitude >= 55.662200 limit ?
+
+1CPU 2GB RAM SSD?
+
+select flat0_.id                 as id1_1_,
+       flat0_.active             as active2_1_,
+       flat0_.address            as address3_1_,
+       flat0_.area               as area4_1_,
+       flat0_.bathroom           as bathroom5_1_,
+       flat0_.building_id        as buildin22_1_,
+       flat0_.construction_year  as construc6_1_,
+       flat0_.floor              as floor7_1_,
+       flat0_.full_address       as full_add8_1_,
+       flat0_.kitchen_area       as kitchen_9_1_,
+       flat0_.last_modify_date   as last_mo10_1_,
+       flat0_.latitude           as latitud11_1_,
+       flat0_.longitude          as longitu12_1_,
+       flat0_.metro              as metro13_1_,
+       flat0_.metro_distance     as metro_d14_1_,
+       flat0_.metro_time         as metro_t15_1_,
+       flat0_.object_type        as object_16_1_,
+       flat0_.price              as price17_1_,
+       flat0_.rooms_amount       as rooms_a18_1_,
+       flat0_.square_metre_price as square_19_1_,
+       flat0_.total_floors       as total_f20_1_,
+       flat0_.wall_material      as wall_ma21_1_
+from public.flat flat0_  -- all rows = 353262
+where 1=1
+  and flat0_.longitude <= 37.649400
+  and flat0_.longitude >= 37.549450
+  and flat0_.latitude <= 55.682200
+  and flat0_.latitude >= 55.662200; -- [2021-03-03 18:01:18] 4320 rows retrieved starting from 1 in 444 ms (execution: 279 ms, fetching: 165 ms)
+
+Batch saved. Batch number: 192. Saved rows: 192000
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+at java.base/java.util.Arrays.copyOf(Arrays.java:3536)
+at java.base/java.io.ByteArrayOutputStream.ensureCapacity(ByteArrayOutputStream.java:100)
+at java.base/java.io.ByteArrayOutputStream.write(ByteArrayOutputStream.java:130)
+at org.apache.poi.openxml4j.opc.internal.MemoryPackagePartOutputStream.write(MemoryPackagePartOutputStream.java:88)
+at org.apache.xmlbeans.impl.store.Cursor._save(Cursor.java:590)
+at org.apache.xmlbeans.impl.store.Cursor.save(Cursor.java:2544)
+at org.apache.xmlbeans.impl.values.XmlObjectBase.save(XmlObjectBase.java:180)
+at org.apache.poi.xssf.usermodel.XSSFSheet.write(XSSFSheet.java:2695)
+at org.apache.poi.xssf.usermodel.XSSFSheet.commit(XSSFSheet.java:2655)
+at org.apache.poi.POIXMLDocumentPart.onSave(POIXMLDocumentPart.java:313)
+at org.apache.poi.POIXMLDocumentPart.onSave(POIXMLDocumentPart.java:317)
+at org.apache.poi.POIXMLDocument.write(POIXMLDocument.java:173)
+at ru.lighthouse.mobile.main.core.excel.DbToExcelExporter.export(DbToExcelExporter.java:79)
+at ru.lighthouse.mobile.main.unittest.ExportExcelUnitTest.test_export(ExportExcelUnitTest.java:22)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:675)
+at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:125)
+at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:132)
+at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:124)
+at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:74)
+at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor$$Lambda$133/0x0000000800bac840.apply(Unknown Source)
+at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall$$Lambda$134/0x0000000800bacc40.apply(Unknown Source)
+at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+at org.junit.jupiter.engine.execution.ExecutableInvoker$$Lambda$271/0x0000000800bddc40.apply(Unknown Source)
+at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:104)
+at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:62)
+at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:43)
+
+Process finished with exit code 1
+
+
+public class CsvToDbExporterTest extends AbstractUnitTest {
+
+    @Test
+    public void test_export_csv() {
+        DbTableToCsvExporter exporter = DbTableToCsvExporter.createExporter("jdbc:postgresql://89.208.85.244/lighthousedb",
+                                                                            "tsoyolv",
+                                                                            "TsoyBf7CV669fmv5geBc");
+        exporter.export("ADMINISTRATIVE_DISTRICT"
+                , "DISTRICT"
+                , "BUILDING_TYPE"
+                , "BUILDING"
+                , "BUILDING_DETAILS"
+                , "BUILDING_GEOINFO"
+                , "FLAT"
+                , "FLAT_DETAILS"
+                , "FLAT_PRICE_HISTORY"
+                , "FLAT_IMAGE");
+    }
+
+    @Test
+    public void test_import_csv() throws URISyntaxException {
+        CsvToDbTableImporter importer = CsvToDbTableImporter.createImporter("jdbc:postgresql://localhost:5432/lighthousedb",
+                                                                            "postgres",
+                                                                            "password");
+        importer.importCsv("ADMINISTRATIVE_DISTRICT_EXPORT_2021-03-06_13-05-39.csv", "ADMINISTRATIVE_DISTRICT");
+        importer.importCsv("DISTRICT_EXPORT_2021-03-06_13-05-39.csv", "DISTRICT");
+        importer.importCsv("BUILDING_TYPE_EXPORT_2021-03-06_13-05-39.csv", "BUILDING_TYPE");
+        importer.importCsv("BUILDING_EXPORT_2021-03-06_16-07-33.csv", "BUILDING");
+        importer.importCsv("BUILDING_DETAILS_EXPORT_2021-03-06_13-05-40.csv", "BUILDING_DETAILS");
+        importer.importCsv("BUILDING_GEOINFO_EXPORT_2021-03-06_13-05-43.csv", "BUILDING_GEOINFO");
+        importer.importCsv("FLAT_EXPORT_2021-03-06_13-05-49.csv", "FLAT");
+        importer.importCsv("FLAT_DETAILS_EXPORT_2021-03-06_13-06-29.csv", "FLAT_DETAILS");
+        importer.importCsv("FLAT_PRICE_HISTORY_EXPORT_2021-03-06_13-06-42.csv", "FLAT_PRICE_HISTORY");
+        importer.importCsv("FLAT_IMAGE_EXPORT_2021-03-06_13-07-09.csv", "FLAT_IMAGE");
+    }
+}
+
+------------------------------------------------------------------------------------------
+Import csv FLAT_DETAILS_EXPORT_2021-03-06_13-06-29.csv table: FLAT_DETAILS
+INSERT INTO FLAT_DETAILS (id,apartment_number,kitchen_area,living_area,redecoration,balcony,balcony_area,loggia,loggia_area,bathroom,bathroom_amount,view_from_windows,sale_type,encumbrance,publication_date,publication_date_end,exposition_days,cian_update_date,cian_update_day_m,renting_price,redevelopment,estimation_percent,area_upper_bound,area_lower_bound,external_id,url,title,phone,phone_operator,person,contact_name,person_type,description,source,advertisements_with_same_phone,phone_protected,actualized_by,actualized_when,actualization_desc) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT (ID) DO UPDATE SET apartment_number=EXCLUDED.apartment_number,kitchen_area=EXCLUDED.kitchen_area,living_area=EXCLUDED.living_area,redecoration=EXCLUDED.redecoration,balcony=EXCLUDED.balcony,balcony_area=EXCLUDED.balcony_area,loggia=EXCLUDED.loggia,loggia_area=EXCLUDED.loggia_area,bathroom=EXCLUDED.bathroom,bathroom_amount=EXCLUDED.bathroom_amount,view_from_windows=EXCLUDED.view_from_windows,sale_type=EXCLUDED.sale_type,encumbrance=EXCLUDED.encumbrance,publication_date=EXCLUDED.publication_date,publication_date_end=EXCLUDED.publication_date_end,exposition_days=EXCLUDED.exposition_days,cian_update_date=EXCLUDED.cian_update_date,cian_update_day_m=EXCLUDED.cian_update_day_m,renting_price=EXCLUDED.renting_price,redevelopment=EXCLUDED.redevelopment,estimation_percent=EXCLUDED.estimation_percent,area_upper_bound=EXCLUDED.area_upper_bound,area_lower_bound=EXCLUDED.area_lower_bound,external_id=EXCLUDED.external_id,url=EXCLUDED.url,title=EXCLUDED.title,phone=EXCLUDED.phone,phone_operator=EXCLUDED.phone_operator,person=EXCLUDED.person,contact_name=EXCLUDED.contact_name,person_type=EXCLUDED.person_type,description=EXCLUDED.description,source=EXCLUDED.source,advertisements_with_same_phone=EXCLUDED.advertisements_with_same_phone,phone_protected=EXCLUDED.phone_protected,actualized_by=EXCLUDED.actualized_by,actualized_when=EXCLUDED.actualized_when,actualization_desc=EXCLUDED.actualization_desc
+SqlException while inserting: No value specified for parameter 34.
+Import CSV time: 0 seconds
+------------------------------------------------------------------------------------------
+Import csv FLAT_PRICE_HISTORY_EXPORT_2021-03-06_13-06-42.csv table: FLAT_PRICE_HISTORY
+INSERT INTO FLAT_PRICE_HISTORY (id,price,modify_date,url,flat_id) VALUES (?,?,?,?,?) ON CONFLICT (ID) DO UPDATE SET price=EXCLUDED.price,modify_date=EXCLUDED.modify_date,url=EXCLUDED.url,flat_id=EXCLUDED.flat_id
+SqlException while inserting: ERROR: insert or update on table "flat_price_history" violates foreign key constraint "flat_price_history_flat_id_fkey"
+  Detail: Key (flat_id)=(47238) is not present in table "flat".
+Import CSV time: 0 seconds
+------------------------------------------------------------------------------------------
+Import csv FLAT_IMAGE_EXPORT_2021-03-06_13-07-09.csv table: FLAT_IMAGE
+INSERT INTO FLAT_IMAGE (id,name,file_path,url,content,flat_id) VALUES (?,?,?,?,?,?) ON CONFLICT (ID) DO UPDATE SET name=EXCLUDED.name,file_path=EXCLUDED.file_path,url=EXCLUDED.url,content=EXCLUDED.content,flat_id=EXCLUDED.flat_id
+SqlException while inserting: ERROR: insert or update on table "flat_image" violates foreign key constraint "flat_image_flat_id_fkey"
+  Detail: Key (flat_id)=(341595) is not present in table "flat".
+Import CSV time: 0 seconds
+
+lighthousedb.public.district_building_type_flat_stats_history
+lighthousedb.public.district_building_type_stats_history
+lighthousedb.public.district_stats_history
+lighthousedb.public.administrative_district
+lighthousedb.public.crm_purchase_order_history
+lighthousedb.public.crm_purchase_order
+lighthousedb.public.flat_image
+lighthousedb.public.building_stats_history
+lighthousedb.public.district
+lighthousedb.public.flat_details
+lighthousedb.public.one_time_scheduler
+lighthousedb.public.building_geoinfo
+lighthousedb.public.building_type
+lighthousedb.public.crm_authority_to_user
+lighthousedb.public.district_building_type_stats
+lighthousedb.public.flat
+lighthousedb.public.district_stats
+lighthousedb.public.building_type_flat_stats
+lighthousedb.public.flat_stats
+lighthousedb.public.building_type_stats
+lighthousedb.public.flat_stats_history
+lighthousedb.public.flat_price_history
+lighthousedb.public.building
+lighthousedb.public.building_flat_stats
+lighthousedb.public.building_type_stats_history
+lighthousedb.public.crm_authority
+lighthousedb.public.district_building_type_flat_stats
+lighthousedb.public.building_type_flat_stats_history
+lighthousedb.public.building_flat_stats_history
+lighthousedb.public.crm_user
+lighthousedb.public.building_details
+lighthousedb.public.building_stats
+
+crm_authority
+crm_user
+crm_authority_to_user
+one_time_scheduler
+administrative_district
+district
+building_type
+building
+building_geoinfo
+building_details
+flat
+flat_details
+flat_price_history
+flat_image
+crm_purchase_order
+flat_stats
+building_stats
+building_type_stats
+district_stats
+building_type_flat_stats
+district_building_type_stats
+district_building_type_flat_stats
+district_building_type_flat_stats_history
+district_building_type_stats_history
+district_stats_history
+crm_purchase_order_history
+building_stats_history
+flat_stats_history
+building_flat_stats
+building_type_stats_history
+building_type_flat_stats_history
+building_flat_stats_history
+
+exporter.export("crm_authority",
+                        "crm_user",
+                        "crm_authority_to_user",
+                        "one_time_scheduler",
+                        "administrative_district",
+                        "district",
+                        "building_type",
+                        "building",
+                        "building_geoinfo",
+                        "building_details",
+                        "flat",
+                        "flat_details",
+                        "flat_price_history",
+                        "flat_image",
+                        "crm_purchase_order",
+                        "flat_stats",
+                        "building_stats",
+                        "building_type_stats",
+                        "district_stats",
+                        "building_type_flat_stats",
+                        "district_building_type_stats",
+                        "district_building_type_flat_stats",
+                        "district_building_type_flat_stats_history",
+                        "district_building_type_stats_history",
+                        "district_stats_history",
+                        "crm_purchase_order_history",
+                        "building_stats_history",
+                        "flat_stats_history",
+                        "building_flat_stats",
+                        "building_type_stats_history",
+                        "building_type_flat_stats_history",
+                        "building_flat_stats_history");
+
+
+public class CsvToDbExporterTest extends AbstractUnitTest {
+
+    @Test
+    public void test_export_csv() {
+        DbTableToCsvExporter exporter = DbTableToCsvExporter.createExporter("jdbc:postgresql://89.208.85.244/lighthousedb",
+                                                                            "tsoyolv",
+                                                                            "TsoyBf7CV669fmv5geBc");
+        exporter.export("crm_authority",
+                        "crm_user",
+                        "crm_authority_to_user",
+                        "one_time_scheduler",
+                        "evaluation",
+                        "administrative_district",
+                        "district",
+                        "building_type",
+                        "building",
+                        "building_geoinfo",
+                        "building_details",
+                        "flat",
+                        "flat_details",
+                        "recommendation_flat",
+                        "flat_price_history",
+                        "flat_image",
+                        "crm_purchase_order",
+                        "flat_stats",
+                        "building_stats",
+                        "building_type_stats",
+                        "district_stats",
+                        "building_type_flat_stats",
+                        "district_building_type_stats",
+                        "district_building_type_flat_stats",
+                        "district_building_type_flat_stats_history",
+                        "district_building_type_stats_history",
+                        "district_stats_history",
+                        "crm_purchase_order_history",
+                        "building_stats_history",
+                        "flat_stats_history",
+                        "building_flat_stats",
+                        "building_type_stats_history",
+                        "building_type_flat_stats_history",
+                        "building_flat_stats_history");
+    }
+
+    @Test
+    public void test_import_csv() throws URISyntaxException {
+        CsvToDbTableImporter importer = CsvToDbTableImporter.createImporter("jdbc:postgresql://localhost:5432/lighthousedb",
+                                                                            "postgres",
+                                                                            "password");
+        importer.importCsv("crm_authority.csv", "crm_authority");
+        importer.importCsv("crm_user.csv", "crm_user");
+        importer.importCsv("crm_authority_to_user.csv", "crm_authority_to_user");
+        importer.importCsv("one_time_scheduler.csv", "one_time_scheduler");
+        importer.importCsv("evaluation.csv", "evaluation");
+        importer.importCsv("administrative_district.csv", "administrative_district");
+
+        importer.importCsv("district.csv", "district");
+        importer.importCsv("building_type.csv", "building_type");
+        importer.importCsv("building.csv", "building");
+        importer.importCsv("building_geoinfo.csv", "building_geoinfo");
+        importer.importCsv("building_details.csv", "building_details");
+
+        importer.importCsv("flat.csv", "flat");
+        importer.importCsv("flat_details.csv", "flat_details");
+        importer.importCsv("recommendation_flat.csv", "recommendation_flat");
+        importer.importCsv("flat_price_history.csv", "flat_price_history");
+        importer.importCsv("flat_image.csv", "flat_image");
+        importer.importCsv("crm_purchase_order.csv", "crm_purchase_order");
+
+        importer.importCsv("district_stats.csv", "district_stats");
+        importer.importCsv("building_type_stats.csv", "building_type_stats");
+        importer.importCsv("building_stats.csv", "building_stats");
+        importer.importCsv("flat_stats.csv", "flat_stats");
+        importer.importCsv("building_type_flat_stats.csv", "building_type_flat_stats");
+
+        importer.importCsv("district_building_type_stats.csv", "district_building_type_stats");
+        importer.importCsv("district_building_type_flat_stats.csv", "district_building_type_flat_stats");
+        importer.importCsv("district_building_type_flat_stats_history.csv", "district_building_type_flat_stats_history");
+        importer.importCsv("district_building_type_stats_history.csv", "district_building_type_stats_history");
+        importer.importCsv("district_stats_history.csv", "district_stats_history");
+
+        importer.importCsv("crm_purchase_order_history.csv", "crm_purchase_order_history");
+        importer.importCsv("building_stats_history.csv", "building_stats_history");
+        importer.importCsv("flat_stats_history.csv", "flat_stats_history");
+        importer.importCsv("building_flat_stats.csv", "building_flat_stats");
+        importer.importCsv("building_type_stats_history.csv", "building_type_stats_history");
+
+        importer.importCsv("building_type_flat_stats_history.csv", "building_type_flat_stats_history");
+        importer.importCsv("building_flat_stats_history.csv", "building_flat_stats_history");
+    }
+}
