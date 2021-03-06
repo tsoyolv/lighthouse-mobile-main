@@ -1,5 +1,7 @@
 package ru.lighthouse.mobile.main.core;
 
+import ru.lighthouse.mobile.main.core.resource.ResourcesUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +12,10 @@ import java.nio.file.StandardOpenOption;
 
 public final class FileUtils {
     private FileUtils() {
+    }
+
+    public static void splitResourceByLineNumbers(String filePath, int lineNumbers) throws IOException {
+        splitFileByLineNumbers(ResourcesUtils.convertResourcePath(filePath), lineNumbers);
     }
 
     public static void splitFileByLineNumbers(Path path, int lineNumbers) throws IOException {

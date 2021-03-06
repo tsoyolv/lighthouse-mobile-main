@@ -1,6 +1,7 @@
-package ru.lighthouse.mobile.main.core;
+package ru.lighthouse.mobile.main.core.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ru.lighthouse.mobile.main.core.FileUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public final class ResourcesUtils {
         try {
             return objectMapper.readValue(FileUtils.class.getClassLoader().getResourceAsStream(fileName), clazz);
         } catch (IOException e) {
-            return null;
+            throw new ResourceNotFoundException(e);
         }
     }
 
@@ -29,7 +30,7 @@ public final class ResourcesUtils {
         try {
             return Path.of(FileUtils.class.getClassLoader().getResource(resourcePath).toURI());
         } catch (URISyntaxException e) {
-            return null;
+            throw new ResourceNotFoundException(resourcePath, e);
         }
     }
 
@@ -47,7 +48,7 @@ public final class ResourcesUtils {
                 strBuilder.append(line);
             }
         } catch (IOException e) {
-            return null;
+            throw new ResourceNotFoundException(e);
         }
         return strBuilder.toString();
     }

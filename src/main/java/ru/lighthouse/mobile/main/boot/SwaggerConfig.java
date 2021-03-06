@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import ru.lighthouse.mobile.main.boot.swagger.SwaggerApiInfo;
-import ru.lighthouse.mobile.main.core.ResourcesUtils;
+import ru.lighthouse.mobile.main.core.resource.ResourcesUtils;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
