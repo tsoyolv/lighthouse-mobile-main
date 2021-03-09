@@ -24,6 +24,10 @@ spring:
         default_schema: public
     show-sql: false
 
+service:
+  crm:
+    url: http://localhost:8002/crm-backend
+
 aspect:
   track-time:
     enabled: true

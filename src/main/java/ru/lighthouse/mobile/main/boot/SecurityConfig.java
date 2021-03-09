@@ -20,7 +20,7 @@ import static ru.lighthouse.mobile.main.boot.security.SecurityRole.ADMIN;
 import static ru.lighthouse.mobile.main.boot.security.SecurityRole.INTEGRATION;
 import static ru.lighthouse.mobile.main.boot.security.SecurityRole.MOBILE;
 import static ru.lighthouse.mobile.main.boot.SwaggerConfig.SWAGGER_URIES;
-import static ru.lighthouse.mobile.main.rest.controller.image.ImageController.IMAGES_URI;
+import static ru.lighthouse.mobile.main.rest.controller.ImageController.IMAGES_URI;
 
 
 @EnableWebSecurity

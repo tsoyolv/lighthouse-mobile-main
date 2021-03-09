@@ -5,15 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import ru.lighthouse.mobile.main.boot.security.jwt.JWTService;
 import ru.lighthouse.mobile.main.core.dao.EntityModel;
 import ru.lighthouse.mobile.main.core.dao.EntityService;
 import ru.lighthouse.mobile.main.core.rest.dto.PageRequestDto;
 import ru.lighthouse.mobile.main.core.rest.dto.SearchCriteriaDto;
 import ru.lighthouse.mobile.main.core.rest.dto.SortedFieldDto;
-import ru.lighthouse.mobile.main.boot.security.jwt.JWTService;
-import ru.lighthouse.mobile.main.service.user.UserService;
-import ru.lighthouse.mobile.main.service.user.entity.User;
 import ru.lighthouse.mobile.main.inttest.AbstractIntegrationTest;
+import ru.lighthouse.mobile.main.repository.user.UserRepository;
+import ru.lighthouse.mobile.main.repository.user.entity.User;
 import ru.lighthouse.mobile.main.testdata.TestDataGenerator;
 
 import java.util.ArrayList;
@@ -22,17 +22,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class AbstractRestControllerTest<T extends EntityModel, S extends EntityService<T>> extends AbstractIntegrationTest {
-    protected AbstractRestControllerTest(S service, JWTService jwtService, UserService userService, TestDataGenerator<T> generator) {
+    protected AbstractRestControllerTest(S service, JWTService jwtService, UserRepository userRepository, TestDataGenerator<T> generator) {
         this.service = service;
         this.jwtService = jwtService;
-        this.userService = userService;
+        this.userRepository = userRepository;
         this.generator = generator;
         this.token = createJwtToken();
     }
 
     protected final S service;
     protected final JWTService jwtService;
-    protected final UserService userService;
+    protected final UserRepository userRepository;
     protected final String token;
     protected final TestDataGenerator<T> generator;
 
@@ -107,7 +107,7 @@ public abstract class AbstractRestControllerTest<T extends EntityModel, S extend
 
     private String createJwtToken() {
         LinkedHashMap<String, Object> details = new LinkedHashMap<>();
-        User user = userService.getByPhoneNumber(DEFAULT_PHONE_NUMBER);
+        User user = userRepository.findByPhoneNumber(DEFAULT_PHONE_NUMBER);
         details.put(jwtService.getClaimDetailsUserId(), user.getId());
         details.put(jwtService.getClaimDetailsUserBirthDate(), user.getBirthDate());
         details.put(jwtService.getClaimDetailsUserFirstName(), user.getFirstName());
