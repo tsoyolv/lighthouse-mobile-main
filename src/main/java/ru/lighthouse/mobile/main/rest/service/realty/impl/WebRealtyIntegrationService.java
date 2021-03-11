@@ -22,10 +22,9 @@ public class WebRealtyIntegrationService implements WebRealtyService {
 
     @Override
     public BboxPageDto<RealtyDto> getRealtyMap(RealtyMapFilterDto filterRequest) {
-        HttpHeaders headers = jwtRestTemplate.createHeadersWithAuth();
         ResponseEntity<BboxPageDto<RealtyDto>> exchange = jwtRestTemplate.exchange(serviceProperties.getCrm().getUrl() + "/map/realty",
                                                                                    HttpMethod.POST,
-                                                                                   new HttpEntity<>(filterRequest, headers),
+                                                                                   new HttpEntity<>(filterRequest),
                                                                                    new ParameterizedTypeReference<>() {});
         if (HttpStatus.OK == exchange.getStatusCode()) {
             return exchange.getBody();

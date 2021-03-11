@@ -13,6 +13,7 @@ import ru.lighthouse.mobile.main.rest.service.flat.impl.dao.WebFlatDaoService;
 import ru.lighthouse.mobile.main.rest.service.flat.impl.dao.mapper.FlatDetailsDtoMapper;
 import ru.lighthouse.mobile.main.rest.service.realty.WebRealtyService;
 import ru.lighthouse.mobile.main.rest.service.realty.impl.WebRealtyIntegrationService;
+import ru.lighthouse.mobile.main.rest.service.realty.impl.dao.WebRealtyDaoService;
 import ru.lighthouse.mobile.main.rest.service.realtyreview.WebRealtyReviewService;
 import ru.lighthouse.mobile.main.rest.service.realtyreview.impl.dao.WebRealtyReviewDaoService;
 import ru.lighthouse.mobile.main.rest.service.user.WebUserService;
@@ -22,8 +23,12 @@ import ru.lighthouse.mobile.main.rest.service.user.impl.dao.WebUserDaoService;
 public class RestServiceConfig {
 
     @Bean
-    public WebRealtyService webRealtyService(ServiceProperties serviceProperties, JwtRestTemplate jwtRestTemplate) {
+    public WebRealtyService webRealtyService(ServiceProperties serviceProperties,
+                                             JwtRestTemplate jwtRestTemplate,
+                                             FlatRepository repository,
+                                             MapperFacade mapper) {
         return new WebRealtyIntegrationService(serviceProperties, jwtRestTemplate);
+        //return new WebRealtyDaoService(repository, mapper);
     }
 
     @Bean
