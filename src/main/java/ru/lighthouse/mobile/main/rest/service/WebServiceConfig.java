@@ -19,14 +19,18 @@ import ru.lighthouse.mobile.main.rest.service.realtyreview.impl.dao.WebRealtyRev
 import ru.lighthouse.mobile.main.rest.service.user.WebUserService;
 import ru.lighthouse.mobile.main.rest.service.user.impl.dao.WebUserDaoService;
 
+import javax.annotation.Resource;
+
 @Configuration
 public class WebServiceConfig {
+
+    @Resource
+    private MapperFacade mapper;
 
     @Bean
     public WebRealtyService webRealtyService(ServiceProperties serviceProperties,
                                              JwtRestTemplate jwtRestTemplate,
-                                             FlatRepository repository,
-                                             MapperFacade mapper) {
+                                             FlatRepository repository) {
         return new WebRealtyIntegrationService(serviceProperties, jwtRestTemplate);
         //return new WebRealtyDaoService(repository, mapper);
     }
@@ -37,12 +41,12 @@ public class WebServiceConfig {
     }
 
     @Bean
-    public WebRealtyReviewService webRealtyReviewService(MapperFacade mapper) {
+    public WebRealtyReviewService webRealtyReviewService() {
         return new WebRealtyReviewDaoService(mapper);
     }
 
     @Bean
-    public WebUserService webUserService(UserRepository repository, MapperFacade mapper, AuthorityRepository authorityRepository) {
+    public WebUserService webUserService(UserRepository repository, AuthorityRepository authorityRepository) {
         return new WebUserDaoService(repository, mapper, authorityRepository);
     }
 }
