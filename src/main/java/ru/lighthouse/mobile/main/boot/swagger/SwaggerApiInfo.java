@@ -34,6 +34,6 @@ public class SwaggerApiInfo {
     @Setter
     public static class Description {
         private String html;
-        private Map<String, String> htmlSubstitution;
+        private Map<String, String> htmlReplaces;
     }
 }

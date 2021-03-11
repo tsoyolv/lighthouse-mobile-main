@@ -12,7 +12,7 @@
     "url": "API license URL"
   },
   "description": {
-    "htmlSubstitution": {
+    "htmlReplaces": {
       "domainUrl": "https://purevaluation.ru",
       "otpUri": "/login/otp",
       "authUri": "/login/auth",

@@ -17,6 +17,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.servlet.ServletContext;
 import java.util.Collections;
 import java.util.Map;
 
@@ -37,13 +38,19 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     private final BuildProperties buildProperties;
     private final SwaggerApiInfo apiInfo;
+    private final ServletContext servletContext;
+    private final Boolean http2Enabled;
 
     public SwaggerConfig(BuildProperties buildProperties,
                          @Value("${swagger.config-locations.api-info}") String apiInfoPath,
-                         @Value("${swagger.config-locations.api-info-description}") String apiInfoDescriptionPath) {
+                         @Value("${swagger.config-locations.api-info-description}") String apiInfoDescriptionPath,
+                         ServletContext servletContext,
+                         @Value("#{new Boolean('${server.http2.enabled}')}") Boolean http2Enabled) {
         this.buildProperties = buildProperties;
         this.apiInfo = ResourcesUtils.readResourceAsJsonObject(apiInfoPath, SwaggerApiInfo.class);
+        this.servletContext = servletContext;
         this.apiInfo.getDescription().setHtml(apiInfoDescriptionPath);
+        this.http2Enabled = http2Enabled;
     }
 
     @Bean
@@ -75,9 +82,11 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     }
 
     private String getApiDescription(SwaggerApiInfo.Description description) {
-        Map<String, String> htmlSubstitution = description.getHtmlSubstitution();
-        htmlSubstitution.put("projectName", apiInfo.getProjectName());
-        StrSubstitutor sub = new StrSubstitutor(htmlSubstitution, "{", "}");
+        Map<String, String> htmlReplaces = description.getHtmlReplaces();
+        htmlReplaces.put("projectName", apiInfo.getProjectName());
+        htmlReplaces.put("server", servletContext.getServerInfo());
+        htmlReplaces.put("httpVersion", http2Enabled ? "HTTP/2" : "HTTP/1.1");
+        StrSubstitutor sub = new StrSubstitutor(htmlReplaces, "{", "}");
         String descriptionInfo = ResourcesUtils.readResourceAsString(description.getHtml());
         return sub.replace(descriptionInfo);
     }
