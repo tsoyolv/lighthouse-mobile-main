@@ -20,7 +20,7 @@ import ru.lighthouse.mobile.main.rest.service.user.WebUserService;
 import ru.lighthouse.mobile.main.rest.service.user.impl.dao.WebUserDaoService;
 
 @Configuration
-public class RestServiceConfig {
+public class WebServiceConfig {
 
     @Bean
     public WebRealtyService webRealtyService(ServiceProperties serviceProperties,
