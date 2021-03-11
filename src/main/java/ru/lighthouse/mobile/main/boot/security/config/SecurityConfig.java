@@ -1,14 +1,13 @@
-package ru.lighthouse.mobile.main.boot;
+package ru.lighthouse.mobile.main.boot.security.config;
 
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.context.SecurityContextRepository;
 import ru.lighthouse.mobile.main.boot.security.jwt.JWTSecurityContextRepository;
@@ -21,13 +20,14 @@ import static ru.lighthouse.mobile.main.App.HEALTH_CHECK_URI;
 import static ru.lighthouse.mobile.main.boot.security.SecurityRole.ADMIN;
 import static ru.lighthouse.mobile.main.boot.security.SecurityRole.INTEGRATION;
 import static ru.lighthouse.mobile.main.boot.security.SecurityRole.MOBILE;
-import static ru.lighthouse.mobile.main.boot.SwaggerConfig.SWAGGER_URIES;
 import static ru.lighthouse.mobile.main.rest.controller.ImageController.IMAGES_URI;
 
 
+@ConditionalOnExpression("${security.enabled}")
 @Configuration
-@Order(1)
-public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableWebSecurity
+@Order(99)
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // it has to be a Resource or Autowired, either it will be a cycle: SecurityConfiguratio -> UserDetailsService
     @Resource
@@ -38,32 +38,29 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.AuthorizedUrl authorizedUrl =
-                http
-                        //.cors().and()
-                        .csrf().disable()
-                        .formLogin().disable()
-                        .httpBasic().disable()
-                        .logout().disable()
-                        .sessionManagement().disable()
-                        .securityContext().securityContextRepository(securityContextRepositoryObject())
-                        .and()
-                        .exceptionHandling().authenticationEntryPoint(failedAuthenticationEntryPointObject())
-                        .and()
-                        .authorizeRequests()
-                        .antMatchers(HEALTH_CHECK_URI, IMAGES_URI + "/**").permitAll()
-                        .anyRequest();
         if (enabled) {
-            authorizedUrl.hasAnyRole(INTEGRATION.name(), ADMIN.name(), MOBILE.name());
-        } else {
-            authorizedUrl.permitAll();
+            http
+                    //.cors().and()
+                    .csrf().disable()
+                    .formLogin().disable()
+                    .httpBasic().disable()
+                    .logout().disable()
+                    .sessionManagement().disable()
+                    .securityContext().securityContextRepository(securityContextRepositoryObject())
+                    .and()
+                    .exceptionHandling().authenticationEntryPoint(failedAuthenticationEntryPointObject())
+                    .and()
+                    .authorizeRequests()
+                    //.antMatchers(SWAGGER_URIES).permitAll()
+                    .antMatchers(HEALTH_CHECK_URI, IMAGES_URI + "/**").permitAll()
+                    .anyRequest().hasAnyRole(INTEGRATION.name(), ADMIN.name(), MOBILE.name());
         }
     }
 
-    @Override
+    /*@Override
     public void configure(final WebSecurity webSecurity) {
         webSecurity.ignoring().antMatchers(SWAGGER_URIES);
-    }
+    }*/
 
 /*
     @Bean

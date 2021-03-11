@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.boot;
+package ru.lighthouse.mobile.main.boot.swagger;
 
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,10 +30,14 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     public static final String UI_HTML = "swagger-ui.html";
     public static final String UI_HTML_URI = "/" + UI_HTML;
     public static final String URI = "/swagger";
-    public static final String[] SWAGGER_URIES = new String[]{"/v2/api-docs",
+    public static final String[] SWAGGER_URIES = new String[]{
+            "/v2/api-docs",
+            "/v3/api-docs/**",
             "/configuration/ui",
-            "/swagger-resources/**",
             "/configuration/security",
+            "/swagger-ui/**",
+            "/swagger-resources",
+            "/swagger-resources/**",
             UI_HTML_URI,
             URI,
             WEB_JARS};

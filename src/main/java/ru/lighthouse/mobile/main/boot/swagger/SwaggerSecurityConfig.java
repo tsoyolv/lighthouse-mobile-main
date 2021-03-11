@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.boot;
+package ru.lighthouse.mobile.main.boot.swagger;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
@@ -10,45 +10,29 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static ru.lighthouse.mobile.main.boot.SwaggerConfig.SWAGGER_URIES;
+import static ru.lighthouse.mobile.main.boot.swagger.SwaggerConfig.SWAGGER_URIES;
 
-@ConditionalOnExpression("${swagger.enabled}")
+@ConditionalOnExpression("${security.enabled} && ${swagger.enabled}")
 @Configuration
-@Order(1)
+@Order(2)
 public class SwaggerSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private static final String[] AUTH_WHITELIST = {
-            // -- Swagger UI v2
-            "/swagger",
-            "/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**",
-            // -- Swagger UI v3 (OpenAPI)
-            "/v3/api-docs/**",
-            "/swagger-ui/**"
-            // other public endpoints of your API may be appended to this array
-    };
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password(passwordEncoder()
-                        .encode("admin"))
-                .roles("ADMIN");
+            .withUser("admin")
+            .password(passwordEncoder()
+                              .encode("admin"))
+            .roles("ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(AUTH_WHITELIST)
-                .authenticated()
-                .and()
-                .httpBasic();
+        http.antMatcher("/**").authorizeRequests()
+            .antMatchers(SWAGGER_URIES)
+            .authenticated()
+            .and()
+            .httpBasic();
     }
 
     @Bean
