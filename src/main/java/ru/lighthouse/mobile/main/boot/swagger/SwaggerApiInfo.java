@@ -8,7 +8,6 @@ import java.util.Map;
 @Getter
 @Setter
 public class SwaggerApiInfo {
-    private String projectName;
     private String title;
     private String termsUrl;
     private Contact contact;

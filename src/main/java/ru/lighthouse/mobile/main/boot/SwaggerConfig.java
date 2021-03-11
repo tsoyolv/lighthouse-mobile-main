@@ -2,6 +2,7 @@ package ru.lighthouse.mobile.main.boot;
 
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ import javax.servlet.ServletContext;
 import java.util.Collections;
 import java.util.Map;
 
+@ConditionalOnExpression("${swagger.enabled}")
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig extends WebMvcConfigurationSupport {
@@ -83,7 +85,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     private String getApiDescription(SwaggerApiInfo.Description description) {
         Map<String, String> htmlReplaces = description.getHtmlReplaces();
-        htmlReplaces.put("projectName", apiInfo.getProjectName());
         htmlReplaces.put("server", servletContext.getServerInfo());
         htmlReplaces.put("httpVersion", http2Enabled ? "HTTP/2" : "HTTP/1.1");
         StrSubstitutor sub = new StrSubstitutor(htmlReplaces, "{", "}");
