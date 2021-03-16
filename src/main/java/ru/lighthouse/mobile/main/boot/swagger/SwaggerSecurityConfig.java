@@ -13,10 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import static ru.lighthouse.mobile.main.boot.swagger.SwaggerConfig.SWAGGER_URIES;
 
 // TODO doesn't work normally
-@ConditionalOnExpression("${security.enabled} && ${swagger.enabled}")
-@Configuration
-@Order(2)
-public class SwaggerSecurityConfig extends WebSecurityConfigurerAdapter {
+//@ConditionalOnExpression("${security.enabled} && ${swagger.enabled}")
+//@Configuration
+//@Order(2)
+public class SwaggerSecurityConfig {}/* extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -40,3 +40,4 @@ public class SwaggerSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
+*/
