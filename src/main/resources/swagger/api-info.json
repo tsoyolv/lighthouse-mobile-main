@@ -1,5 +1,4 @@
 {
-  "projectName": "Purevision",
   "title": "Документация для MOBILE API Purevision",
   "termsUrl": "termsUrl",
   "contact": {
@@ -13,6 +12,7 @@
   },
   "description": {
     "htmlReplaces": {
+      "projectName": "Purevision",
       "domainUrl": "https://purevaluation.ru",
       "otpUri": "/login/otp",
       "authUri": "/login/auth",

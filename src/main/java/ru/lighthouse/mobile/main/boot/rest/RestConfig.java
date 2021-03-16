@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.boot;
+package ru.lighthouse.mobile.main.boot.rest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

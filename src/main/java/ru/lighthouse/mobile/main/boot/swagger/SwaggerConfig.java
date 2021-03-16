@@ -1,13 +1,14 @@
-package ru.lighthouse.mobile.main.boot;
+package ru.lighthouse.mobile.main.boot.swagger;
 
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import ru.lighthouse.mobile.main.boot.swagger.SwaggerApiInfo;
+import ru.lighthouse.mobile.main.boot.property.DomainProperties;
 import ru.lighthouse.mobile.main.core.resource.ResourcesUtils;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -21,6 +22,7 @@ import javax.servlet.ServletContext;
 import java.util.Collections;
 import java.util.Map;
 
+@ConditionalOnExpression("${swagger.enabled}")
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig extends WebMvcConfigurationSupport {
@@ -28,26 +30,33 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     public static final String UI_HTML = "swagger-ui.html";
     public static final String UI_HTML_URI = "/" + UI_HTML;
     public static final String URI = "/swagger";
-    public static final String[] SWAGGER_URIES = new String[]{"/v2/api-docs",
+    public static final String[] SWAGGER_URIES = new String[]{
+            "/v2/api-docs",
+            "/v3/api-docs/**",
             "/configuration/ui",
-            "/swagger-resources/**",
             "/configuration/security",
+            "/swagger-ui/**",
+            "/swagger-resources",
+            "/swagger-resources/**",
             UI_HTML_URI,
             URI,
             WEB_JARS};
 
     private final BuildProperties buildProperties;
     private final SwaggerApiInfo apiInfo;
+    private final DomainProperties domainProperties;
     private final ServletContext servletContext;
     private final Boolean http2Enabled;
 
     public SwaggerConfig(BuildProperties buildProperties,
                          @Value("${swagger.config-locations.api-info}") String apiInfoPath,
                          @Value("${swagger.config-locations.api-info-description}") String apiInfoDescriptionPath,
+                         DomainProperties domainProperties,
                          ServletContext servletContext,
                          @Value("#{new Boolean('${server.http2.enabled}')}") Boolean http2Enabled) {
         this.buildProperties = buildProperties;
         this.apiInfo = ResourcesUtils.readResourceAsJsonObject(apiInfoPath, SwaggerApiInfo.class);
+        this.domainProperties = domainProperties;
         this.servletContext = servletContext;
         this.apiInfo.getDescription().setHtml(apiInfoDescriptionPath);
         this.http2Enabled = http2Enabled;
@@ -60,7 +69,8 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .apis(RequestHandlerSelectors.basePackage("ru.lighthouse.mobile.main.rest.controller"))
                 .paths(PathSelectors.any())
                 .build()
-                .apiInfo(apiInfo());
+                .apiInfo(apiInfo())
+                .host(domainProperties.getHost());
     }
 
     @Override
@@ -83,7 +93,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     private String getApiDescription(SwaggerApiInfo.Description description) {
         Map<String, String> htmlReplaces = description.getHtmlReplaces();
-        htmlReplaces.put("projectName", apiInfo.getProjectName());
         htmlReplaces.put("server", servletContext.getServerInfo());
         htmlReplaces.put("httpVersion", http2Enabled ? "HTTP/2" : "HTTP/1.1");
         StrSubstitutor sub = new StrSubstitutor(htmlReplaces, "{", "}");

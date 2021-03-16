@@ -456,3 +456,6 @@ public class CsvToDbExporterTest extends AbstractUnitTest {
         importer.importCsv("building_flat_stats_history.csv", "building_flat_stats_history");
     }
 }
+
+https://www.baeldung.com/spring-security-multiple-entry-points
+https://blog.appandgeek.com/enable-authentication-basic-auth-on-swagger-ui-using-spring-security/
