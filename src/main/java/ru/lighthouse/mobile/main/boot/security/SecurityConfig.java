@@ -1,4 +1,4 @@
-package ru.lighthouse.mobile.main.boot.security.config;
+package ru.lighthouse.mobile.main.boot.security;
 
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;

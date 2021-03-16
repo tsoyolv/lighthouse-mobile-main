@@ -7,6 +7,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -14,11 +15,12 @@ import static ru.lighthouse.mobile.main.core.DbDataTypeConstants.DATE_FORMAT;
 
 
 @Aspect
+@Component
 @ConditionalOnExpression("${aspect.track-time.enabled}")
 public class TrackExecutionTimeAspect {
     private static final Logger log = LoggerFactory.getLogger(TrackExecutionTimeAspect.class);
 
-    @Around("@annotation(TrackExecutionTime)")
+    @Around("@annotation(ru.lighthouse.mobile.main.boot.tracktime.TrackExecutionTime)")
     public Object executionTime(ProceedingJoinPoint point) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) point.getSignature();
         String className = methodSignature.getDeclaringType().getSimpleName();
