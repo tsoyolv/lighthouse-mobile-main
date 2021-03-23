@@ -24,6 +24,11 @@ spring:
         default_schema: public
     show-sql: false
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
 service:
   crm:
     url: http://localhost:8002/crm-backend
