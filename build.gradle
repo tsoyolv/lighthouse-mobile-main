@@ -74,3 +74,9 @@ test {
 clean.doLast {
 	file('logs').deleteDir()
 }
+
+task importDbCsv(type: JavaExec) {
+	description = 'Import DataBase from CSV'
+	classpath = sourceSets.main.runtimeClasspath
+	main = 'ru.lighthouse.mobile.main.core.csv.DBCsvMain'
+}
