@@ -36,12 +36,46 @@ read -s registryPassword
 printf "Password entered\n\n"
 
 docker logout
-docker login --username $registryLogin --password $registryPassword
+
+if docker login --username $registryLogin --password $registryPassword; then
+    echo "docker login successfull"
+else
+    echo "docker login FAILED. EXIT"
+    exit 0;
+fi
+
 printf '============================================ Docker HUB registry login end ==============================================\n\n'
 
 printf '============================================ Create docker image start ==============================================\n\n'
-./gradlew clean
-./gradlew bootJar
+
+if git diff-index --quiet HEAD --; then
+    echo "GIT OK"
+else
+    echo "There is git changes! FAILED. EXIT"
+    exit 1;
+fi
+
+if ./gradlew clean; then
+    echo "gradle clean OK"
+else
+    echo "gradle clean FAILED. EXIT"
+    exit 2;
+fi
+
+if ./gradlew test; then
+    echo "gradle test OK"
+else
+    echo "gradle test FAILED. EXIT"
+    exit 3;
+fi
+
+if ./gradlew bootJar; then
+    echo "gradle bootJar OK"
+else
+    echo "gradle bootJar FAILED. EXIT"
+    exit 4;
+fi
+
 mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
 docker build -f docker/Dockerfile -t ${PROJ_NAME}:${PROJ_VERSION} .
 printf '============================================ Create docker image end ==============================================\n\n'

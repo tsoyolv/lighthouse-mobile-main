@@ -17,6 +17,6 @@ public class SwaggerRedirectView {
 
     @GetMapping(value = SwaggerConfig.URI)
     public RedirectView swaggerUi() {
-        return new RedirectView(domainProperties.getUrl() + "/" + domainProperties.getServiceContextPath() + SwaggerConfig.UI_HTML);
+        return new RedirectView(domainProperties.getUrl() + domainProperties.getServiceContextPath() + "/" + SwaggerConfig.UI_HTML);
     }
 }
